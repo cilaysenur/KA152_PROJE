@@ -9,7 +9,7 @@
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0f172a; color: white; overflow-x: hidden; }
         
-        /* FULL SAYFA ARKA PLAN (SABİT) */
+        /* FULL SAYFA ARKA PLAN */
         .fixed-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -20,7 +20,7 @@
             z-index: -1;
         }
 
-        /* CAM KART TASARIMI (PREMIUM) */
+        /* CAM KART TASARIMI */
         .glass-card {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(20px);
@@ -47,7 +47,7 @@
         .fade-up { animation: fadeUp 1s ease-out forwards; opacity: 0; transform: translateY(30px); }
         .delay-100 { animation-delay: 0.2s; }
         .delay-200 { animation-delay: 0.4s; }
-        
+        .delay-300 { animation-delay: 0.6s; }
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
@@ -88,8 +88,9 @@
         </button>
         <nav class="flex flex-col gap-10 text-center">
             <a href="index.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Ana Sayfa</a>
+            <a href="sss-degerlendirme.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">SSS & Anket</a>
             <a href="proje.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Proje Detayları</a>
-            <a href="ekip.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Ekip</a>
+            <a href="ekip.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Ekip&İletişim</a>
         </nav>
     </div>
 
@@ -132,7 +133,35 @@
         </div>
     </header>
 
-    <section class="py-32 px-6">
+    <section id="countdown-area" class="py-10 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="glass-card p-10 rounded-3xl border border-blue-500/30">
+                <h3 class="text-blue-400 font-bold tracking-widest uppercase text-sm mb-4">HAREKETLİLİK ZAMANI</h3>
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-8">Take-off (Uçuş) İçin Geri Sayım</h2>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-slate-900/50 rounded-xl p-4">
+                        <span id="gun" class="block text-4xl font-bold text-blue-500">00</span>
+                        <span class="text-xs text-slate-400 uppercase">Gün</span>
+                    </div>
+                    <div class="bg-slate-900/50 rounded-xl p-4">
+                        <span id="saat" class="block text-4xl font-bold text-white">00</span>
+                        <span class="text-xs text-slate-400 uppercase">Saat</span>
+                    </div>
+                    <div class="bg-slate-900/50 rounded-xl p-4">
+                        <span id="dakika" class="block text-4xl font-bold text-white">00</span>
+                        <span class="text-xs text-slate-400 uppercase">Dakika</span>
+                    </div>
+                    <div class="bg-slate-900/50 rounded-xl p-4">
+                        <span id="saniye" class="block text-4xl font-bold text-blue-500">00</span>
+                        <span class="text-xs text-slate-400 uppercase">Saniye</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="proje-detay" class="py-32 px-6">
         <div class="max-w-7xl mx-auto">
             <div class="grid lg:grid-cols-2 gap-20 items-center mb-32">
                 <div class="fade-up delay-100">
@@ -212,15 +241,63 @@
         </div>
     </section>
 
-    <footer class="border-t border-white/5 bg-slate-900 py-10 text-center">
-        <p class="text-slate-500 text-xs font-bold uppercase tracking-widest">© 2026 KA152 Project | Erasmus+</p>
+    <section id="forms-area" class="py-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-12">Katılım</h2>
+            <div class="max-w-2xl mx-auto">
+                <div class="glass-card p-8 rounded-3xl border-l-4 border-l-blue-500 text-center">
+                    <h3 class="text-2xl font-bold text-white mb-2"> Başvuru Formu</h3>
+                    <p class="text-slate-400 mb-6">Projeye dahil olmak ve bizimle uçmak için formu doldur.</p>
+                    <a href="#" class="inline-block px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold transition-all w-full text-center">Başvuru Yap</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="border-t border-white/5 bg-slate-900/90 py-16 text-center">
+        <div class="max-w-3xl mx-auto px-6">
+            <div class="flex items-center justify-center gap-4 mb-6">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg" alt="AB Bayrağı" class="w-12 h-auto">
+                <span class="text-left text-xs font-bold text-slate-300 uppercase leading-tight">Co-funded by the<br>Erasmus+ Programme<br>of the European Union</span>
+            </div>
+            
+            <p class="text-slate-400 text-sm italic mb-8">
+                "Bu proje Avrupa Komisyonu tarafından desteklenmektedir. Ancak burada yer alan görüşlerden Avrupa Komisyonu ve Türkiye Ulusal Ajansı sorumlu tutulamaz."
+            </p>
+            
+            <div class="flex justify-center gap-6 mb-8 text-sm font-semibold text-blue-400">
+                <a href="#" class="hover:text-white transition-colors">Instagram</a>
+                <span class="text-slate-600">•</span>
+                <a href="sss-degerlendirme.html" class="hover:text-white transition-colors">SSS ve Destek</a>
+            </div>
+
+            <p class="text-slate-600 text-xs font-bold uppercase tracking-widest">© 2026 KA152 Project</p>
+        </div>
     </footer>
 
     <script>
+        // MOBİL MENÜ JS
         function toggleMenu() {
             const menu = document.getElementById('mobileMenu');
             menu.classList.toggle('translate-x-full');
         }
+
+        // GERİ SAYIM JS
+        const hedefTarih = new Date("2026-05-15T09:00:00").getTime();
+
+        setInterval(function() {
+            const simdi = new Date().getTime();
+            const fark = hedefTarih - simdi;
+
+            if (fark > 0) {
+                document.getElementById("gun").innerText = Math.floor(fark / (1000 * 60 * 60 * 24));
+                document.getElementById("saat").innerText = Math.floor((fark % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                document.getElementById("dakika").innerText = Math.floor((fark % (1000 * 60 * 60)) / (1000 * 60));
+                document.getElementById("saniye").innerText = Math.floor((fark % (1000 * 60)) / 1000);
+            } else {
+                document.getElementById("countdown-area").innerHTML = "<h2 class='text-center text-white text-3xl'>UÇUŞ BAŞLADI! ✈️</h2>";
+            }
+        }, 1000);
     </script>
 </body>
 </html>
