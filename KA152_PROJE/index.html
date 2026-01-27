@@ -170,7 +170,7 @@
                 <div class="glass-card p-8 rounded-3xl border-l-4 border-l-blue-500 text-center">
                     <h3 class="text-2xl font-bold text-white mb-2"> Başvuru Formu</h3>
                     <p class="text-slate-400 mb-6">Projeye dahil olmak ve bizimle uçmak için formu doldur.</p>
-                    <a href="#" class="inline-block px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold transition-all w-full text-center">Başvuru Yap</a>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdJLYjzKd3gpir8kwYJUUSThRM3QufWzGxGXH3Ve15eeEMY6g/viewform?usp=header" class="inline-block px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold transition-all w-full text-center">Başvuru Yap</a>
                 </div>
             </div>
         </div>
@@ -189,16 +189,44 @@
 
     <script>
         function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('translate-x-full'); }
-        const hedefTarih = new Date("2026-05-15T09:00:00").getTime();
-        setInterval(function() {
-            const simdi = new Date().getTime(); const fark = hedefTarih - simdi;
-            if (fark > 0) {
-                document.getElementById("gun").innerText = Math.floor(fark / (1000 * 60 * 60 * 24));
-                document.getElementById("saat").innerText = Math.floor((fark % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                document.getElementById("dakika").innerText = Math.floor((fark % (1000 * 60 * 60)) / (1000 * 60));
-                document.getElementById("saniye").innerText = Math.floor((fark % (1000 * 60)) / 1000);
-            } else { document.getElementById("countdown-area").innerHTML = "<h2 class='text-center text-white text-3xl'>UÇUŞ BAŞLADI! ✈️</h2>"; }
-        }, 1000);
+
+        // FIREBASE ENTEGRASYONU (Sadece Tarih İçin)
+        // SENİN LİNKİN:
+        const DB_URL = "https://ka152-proje-default-rtdb.firebaseio.com";
+
+        // Veriyi çek
+        fetch(DB_URL + "/veri.json")
+            .then(res => res.json())
+            .then(data => {
+                // Eğer panelden tarih ayarlanmışsa onu kullan, yoksa varsayılan bir tarih olsun
+                let hedefZaman;
+                
+                if (data && data.tarih) {
+                    hedefZaman = new Date(data.tarih).getTime();
+                } else {
+                    hedefZaman = new Date("2026-05-15T09:00:00").getTime(); // Varsayılan
+                }
+
+                // Geri Sayım Motoru
+                setInterval(function() {
+                    const simdi = new Date().getTime(); 
+                    const fark = hedefZaman - simdi;
+                    
+                    if (fark > 0) {
+                        document.getElementById("gun").innerText = Math.floor(fark / (1000 * 60 * 60 * 24));
+                        document.getElementById("saat").innerText = Math.floor((fark % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        document.getElementById("dakika").innerText = Math.floor((fark % (1000 * 60 * 60)) / (1000 * 60));
+                        document.getElementById("saniye").innerText = Math.floor((fark % (1000 * 60)) / 1000);
+                    } else { 
+                        document.getElementById("countdown-area").innerHTML = "<h2 class='text-center text-white text-3xl font-bold'>UÇUŞ BAŞLADI! ✈️</h2>"; 
+                    }
+                }, 1000);
+            })
+            .catch(err => {
+                console.log("Firebase hatası:", err);
+                // Hata olursa en azından sayaç çalışsın diye varsayılan tarih
+                // Ama panelden değiştiremezsin hata varsa.
+            });
     </script>
 </body>
 </html>

@@ -3,99 +3,284 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yönetim Paneli | Dashboard</title>
+    <title>Yönetim Paneli | KA152</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f1f5f9; color: #1e293b; }</style>
-    <script>
-        // Sayfa açılmadan güvenlik kontrolü yap
-        // Eğer kullanıcı giriş yapmadıysa login sayfasına at
-        if (localStorage.getItem("isAdmin") !== "true") {
-            window.location.href = "admin-login.html";
-        }
-    </script>
-</head>
-<body>
-
-    <div class="flex h-screen overflow-hidden">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0f172a; color: white; }
         
-        <aside class="w-64 bg-slate-900 text-white flex flex-col">
-            <div class="p-6 text-2xl font-bold text-blue-500 tracking-widest">KA152 ADMIN</div>
-            <nav class="flex-1 px-4 space-y-2 mt-4">
-                <a href="#" class="block px-4 py-3 bg-blue-600 rounded-xl font-bold">📊 Başvurular</a>
-                <a href="#" class="block px-4 py-3 hover:bg-white/10 rounded-xl text-slate-400 transition-colors">📩 Mesajlar</a>
-                <a href="#" class="block px-4 py-3 hover:bg-white/10 rounded-xl text-slate-400 transition-colors">⚙️ Ayarlar</a>
-            </nav>
-            <div class="p-4">
-                <button onclick="logout()" class="w-full py-3 border border-red-500/30 text-red-400 hover:bg-red-500/10 rounded-xl text-sm font-bold">Çıkış Yap</button>
+        .fixed-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.98)),
+            url('https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover; background-position: center; z-index: -1;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .input-glass {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .input-glass:focus {
+            outline: none;
+            border-color: #3b82f6;
+            background: rgba(15, 23, 42, 0.9);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        }
+
+        /* Sürükleme Efektleri */
+        .cursor-grab { cursor: grab; }
+        .cursor-grab:active { cursor: grabbing; }
+        
+        /* Sürüklerken arkada kalan gölge */
+        .sortable-ghost {
+            opacity: 0.4;
+            background-color: rgba(59, 130, 246, 0.2);
+            border: 2px dashed #3b82f6;
+        }
+        /* Sürüklenen eleman */
+        .sortable-drag {
+            cursor: grabbing;
+            opacity: 1;
+            background: #1e293b;
+            transform: scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+        
+        ::-webkit-calendar-picker-indicator { filter: invert(1); }
+    </style>
+</head>
+<body class="p-6 md:p-12 min-h-screen">
+
+    <div class="fixed-bg"></div>
+
+    <script>
+        const DB_URL = "https://ka152-proje-default-rtdb.firebaseio.com"; 
+        if (localStorage.getItem("admin") !== "true") window.location.href = "admin-login.html";
+    </script>
+
+    <header class="max-w-5xl mx-auto glass-card rounded-2xl p-6 mb-8 flex justify-between items-center sticky top-4 z-50">
+        <div class="flex items-center gap-4">
+            <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/30">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 text-white"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" /></svg>
             </div>
-        </aside>
+            <div>
+                <h1 class="text-xl font-bold text-white">Yönetim Paneli</h1>
+                <p class="text-xs text-blue-400 font-bold uppercase tracking-widest">KA152 PROJESİ</p>
+            </div>
+        </div>
+        <div class="flex gap-3">
+            <a href="index.html" target="_blank" class="px-4 py-2 rounded-lg border border-white/10 hover:bg-white/5 text-sm font-bold text-slate-300 transition-colors">Siteye Git ↗</a>
+            <button onclick="cikis()" class="px-4 py-2 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-bold hover:bg-red-500/20 transition-colors">Çıkış</button>
+        </div>
+    </header>
 
-        <main class="flex-1 overflow-y-auto p-10">
-            <header class="flex justify-between items-center mb-10">
-                <h1 class="text-3xl font-bold text-slate-800">Gelen Başvurular</h1>
-                <div class="flex items-center gap-3">
-                    <span class="text-sm font-bold text-slate-500">Admin</span>
-                    <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">A</div>
-                </div>
-            </header>
+    <div class="max-w-5xl mx-auto space-y-8 pb-20">
 
-            <div class="grid grid-cols-3 gap-6 mb-10">
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                    <div class="text-slate-400 text-sm font-bold uppercase">Toplam Başvuru</div>
-                    <div class="text-4xl font-bold text-slate-800 mt-2">124</div>
-                </div>
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                    <div class="text-slate-400 text-sm font-bold uppercase">Bekleyen</div>
-                    <div class="text-4xl font-bold text-yellow-500 mt-2">18</div>
-                </div>
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                    <div class="text-slate-400 text-sm font-bold uppercase">Onaylanan</div>
-                    <div class="text-4xl font-bold text-green-500 mt-2">85</div>
+        <div class="glass-card p-8 rounded-3xl relative overflow-hidden">
+            <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                <span class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 text-sm">1</span>
+                Geri Sayım Tarihi
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6 items-center">
+                <div>
+                    <p class="text-slate-400 text-sm mb-2">Projenin başlayacağı tarihi seçiniz.</p>
+                    <input type="datetime-local" id="inp-tarih" class="input-glass w-full p-4 rounded-xl">
                 </div>
             </div>
+        </div>
 
-            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                <table class="w-full text-left">
-                    <thead class="bg-slate-50 border-b border-slate-200">
-                        <tr>
-                            <th class="p-4 font-bold text-slate-500 text-sm">AD SOYAD</th>
-                            <th class="p-4 font-bold text-slate-500 text-sm">TARİH</th>
-                            <th class="p-4 font-bold text-slate-500 text-sm">DURUM</th>
-                            <th class="p-4 font-bold text-slate-500 text-sm">İŞLEM</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-100">
-                        <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="p-4 font-bold text-slate-700">Ahmet Yılmaz</td>
-                            <td class="p-4 text-slate-500">26 Ocak 2026</td>
-                            <td class="p-4"><span class="px-3 py-1 bg-yellow-100 text-yellow-600 rounded-full text-xs font-bold">İnceleniyor</span></td>
-                            <td class="p-4 text-blue-600 font-bold cursor-pointer text-sm">Detay</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="p-4 font-bold text-slate-700">Ayşe Demir</td>
-                            <td class="p-4 text-slate-500">25 Ocak 2026</td>
-                            <td class="p-4"><span class="px-3 py-1 bg-green-100 text-green-600 rounded-full text-xs font-bold">Onaylandı</span></td>
-                            <td class="p-4 text-blue-600 font-bold cursor-pointer text-sm">Detay</td>
-                        </tr>
-                         <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="p-4 font-bold text-slate-700">Mehmet Can</td>
-                            <td class="p-4 text-slate-500">24 Ocak 2026</td>
-                            <td class="p-4"><span class="px-3 py-1 bg-red-100 text-red-600 rounded-full text-xs font-bold">Reddedildi</span></td>
-                            <td class="p-4 text-blue-600 font-bold cursor-pointer text-sm">Detay</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="glass-card p-8 rounded-3xl border-l-4 border-l-cyan-500">
+            <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                <span class="w-8 h-8 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-400 text-sm">2</span>
+                Proje Ortakları (Kurumlar)
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-3 mb-6">
+                <input type="text" id="ortak-ad" placeholder="Kurum Adı (Örn: GÖKSU)" class="input-glass p-3 rounded-xl">
+                <input type="text" id="ortak-rol" placeholder="Rolü (Örn: Ana Yürütücü)" class="input-glass p-3 rounded-xl">
+                <input type="text" id="ortak-harf" placeholder="Logo Harfi (Örn: G)" class="input-glass p-3 rounded-xl" maxlength="3">
             </div>
+            <button onclick="ortakEkle()" class="w-full py-3 bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-xl transition-all mb-6 flex items-center justify-center gap-2">
+                + Ortağı Listeye Ekle
+            </button>
+            
+            <p class="text-xs text-cyan-300/70 mb-2 italic">💡 Sıralamayı değiştirmek için kutuların üzerine basılı tutup sürükleyin.</p>
+            <ul id="ortak-listesi" class="space-y-3 min-h-[50px]"></ul>
+        </div>
 
-        </main>
+        <div class="glass-card p-8 rounded-3xl border-l-4 border-l-blue-500">
+            <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                <span class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 text-sm">3</span>
+                Yönetim Ekibi
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-3 mb-6">
+                <input type="text" id="yeni-ad" placeholder="Ad Soyad" class="input-glass p-3 rounded-xl">
+                <input type="text" id="yeni-gorev" placeholder="Görevi (Örn: Lojistik)" class="input-glass p-3 rounded-xl">
+                <input type="text" id="yeni-resim" placeholder="Resim Linki (Boşsa otomatik)" class="input-glass p-3 rounded-xl">
+            </div>
+            <button onclick="ekipEkle()" class="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all mb-6 flex items-center justify-center gap-2">
+                + Ekip Üyesi Ekle
+            </button>
+
+            <p class="text-xs text-blue-300/70 mb-2 italic">💡 Sıralamayı değiştirmek için kutuların üzerine basılı tutup sürükleyin.</p>
+            <ul id="ekip-listesi" class="space-y-3 min-h-[50px]"></ul>
+        </div>
+
+    </div>
+
+    <div class="fixed bottom-0 left-0 w-full p-6 bg-slate-900/90 backdrop-blur-xl border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 z-50">
+        <div class="text-slate-400 text-sm hidden md:block">Sürükleyip bıraktıktan sonra "Kaydet" demeyi unutmayın.</div>
+        <div class="flex items-center gap-4 w-full md:w-auto">
+            <span id="mesaj" class="font-bold text-green-400 hidden animate-pulse">✅ Güncellendi!</span>
+            <button onclick="kaydet()" id="btn-kaydet" class="flex-1 md:flex-none px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-bold rounded-xl shadow-lg shadow-blue-600/20 transition-all active:scale-95">
+                💾 SİTEYİ GÜNCELLE
+            </button>
+        </div>
     </div>
 
     <script>
-        function logout() {
-            localStorage.removeItem("isAdmin");
-            window.location.href = "admin-login.html";
+        let ekipData = [];
+        let ortakData = [];
+
+        fetch(DB_URL + "/veri.json").then(r => r.json()).then(data => {
+            if(data) {
+                document.getElementById('inp-tarih').value = data.tarih || "";
+                ekipData = data.ekip || [];
+                ortakData = data.ortaklar || [];
+                
+                // Listeleri doldur
+                renderEkip();
+                renderOrtak();
+
+                // Sürükle Bırak Özelliğini Başlat
+                baslatSurukleBirak();
+            }
+        });
+
+        function baslatSurukleBirak() {
+            // Ekip Listesi İçin
+            new Sortable(document.getElementById('ekip-listesi'), {
+                animation: 150,
+                ghostClass: 'sortable-ghost',
+                dragClass: 'sortable-drag',
+                handle: '.drag-handle', // Sadece ikondan değil tüm kutudan tutulabilir yapalım dersen bunu silebilirsin
+                onEnd: function (evt) {
+                    // Dizideki yerini değiştir
+                    const item = ekipData.splice(evt.oldIndex, 1)[0];
+                    ekipData.splice(evt.newIndex, 0, item);
+                }
+            });
+
+            // Ortak Listesi İçin
+            new Sortable(document.getElementById('ortak-listesi'), {
+                animation: 150,
+                ghostClass: 'sortable-ghost',
+                dragClass: 'sortable-drag',
+                onEnd: function (evt) {
+                    const item = ortakData.splice(evt.oldIndex, 1)[0];
+                    ortakData.splice(evt.newIndex, 0, item);
+                }
+            });
         }
+
+        // --- EKİP FONKSİYONLARI ---
+        function renderEkip() {
+            const ul = document.getElementById('ekip-listesi');
+            ul.innerHTML = "";
+            ekipData.forEach((uye, i) => {
+                ul.innerHTML += `
+                    <li class="cursor-grab active:cursor-grabbing flex justify-between items-center p-4 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-colors select-none">
+                        <div class="flex items-center gap-4">
+                            <div class="drag-handle text-slate-500 cursor-grab hover:text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"></circle><circle cx="9" cy="5" r="1"></circle><circle cx="9" cy="19" r="1"></circle><circle cx="15" cy="12" r="1"></circle><circle cx="15" cy="5" r="1"></circle><circle cx="15" cy="19" r="1"></circle></svg>
+                            </div>
+                            <img src="${uye.resim}" class="w-10 h-10 rounded-full object-cover border border-white/20 pointer-events-none">
+                            <div>
+                                <div class="font-bold text-white text-sm">${uye.ad}</div>
+                                <div class="text-xs text-blue-400 font-bold uppercase tracking-wider">${uye.gorev}</div>
+                            </div>
+                        </div>
+                        <button onclick="ekipSil(${i})" class="w-8 h-8 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center hover:bg-red-500 hover:text-white transition-colors">✖</button>
+                    </li>`;
+            });
+        }
+        function ekipEkle() {
+            const ad = document.getElementById('yeni-ad').value;
+            const gorev = document.getElementById('yeni-gorev').value;
+            let resim = document.getElementById('yeni-resim').value || `https://ui-avatars.com/api/?name=${ad}&background=random&color=fff&background=3b82f6`;
+            if(ad && gorev) {
+                ekipData.push({ ad, gorev, resim });
+                renderEkip();
+                document.getElementById('yeni-ad').value = ""; document.getElementById('yeni-gorev').value = ""; document.getElementById('yeni-resim').value = "";
+            }
+        }
+        function ekipSil(i) { ekipData.splice(i, 1); renderEkip(); }
+
+        // --- ORTAK (PARTNER) FONKSİYONLARI ---
+        function renderOrtak() {
+            const ul = document.getElementById('ortak-listesi');
+            ul.innerHTML = "";
+            ortakData.forEach((o, i) => {
+                ul.innerHTML += `
+                    <li class="cursor-grab active:cursor-grabbing flex justify-between items-center p-4 bg-cyan-500/5 border border-cyan-500/20 rounded-xl select-none">
+                        <div class="flex items-center gap-4">
+                            <div class="text-cyan-500/50 cursor-grab hover:text-cyan-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"></circle><circle cx="9" cy="5" r="1"></circle><circle cx="9" cy="19" r="1"></circle><circle cx="15" cy="12" r="1"></circle><circle cx="15" cy="5" r="1"></circle><circle cx="15" cy="19" r="1"></circle></svg>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-cyan-600 text-white flex items-center justify-center font-bold text-sm shadow-lg pointer-events-none">${o.harf}</div>
+                            <div>
+                                <div class="font-bold text-white text-sm">${o.ad}</div>
+                                <div class="text-xs text-cyan-400">${o.rol}</div>
+                            </div>
+                        </div>
+                        <button onclick="ortakSil(${i})" class="w-8 h-8 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center hover:bg-red-500 hover:text-white transition-colors">✖</button>
+                    </li>`;
+            });
+        }
+        function ortakEkle() {
+            const ad = document.getElementById('ortak-ad').value;
+            const rol = document.getElementById('ortak-rol').value;
+            const harf = document.getElementById('ortak-harf').value;
+            if(ad && rol) {
+                ortakData.push({ ad, rol, harf: harf || ad[0] });
+                renderOrtak();
+                document.getElementById('ortak-ad').value = ""; document.getElementById('ortak-rol').value = ""; document.getElementById('ortak-harf').value = "";
+            }
+        }
+        function ortakSil(i) { ortakData.splice(i, 1); renderOrtak(); }
+
+        // --- KAYDET ---
+        async function kaydet() {
+            const btn = document.getElementById('btn-kaydet');
+            const msg = document.getElementById('mesaj');
+            btn.innerText = "⏳ Kaydediliyor...";
+            btn.classList.add('opacity-75', 'cursor-not-allowed');
+            
+            const veri = {
+                tarih: document.getElementById('inp-tarih').value,
+                ekip: ekipData, // Sürükledikten sonra güncellenmiş hali gider
+                ortaklar: ortakData
+            };
+
+            await fetch(DB_URL + "/veri.json", { method: "PUT", body: JSON.stringify(veri) });
+            
+            msg.classList.remove('hidden');
+            btn.innerText = "💾 SİTEYİ GÜNCELLE";
+            btn.classList.remove('opacity-75', 'cursor-not-allowed');
+            setTimeout(() => msg.classList.add('hidden'), 3000);
+        }
+
+        function cikis() { localStorage.removeItem("admin"); window.location.href = "admin-login.html"; }
     </script>
 </body>
 </html>
