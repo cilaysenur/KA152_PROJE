@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog & Haberler | KA152</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0f172a; color: white; overflow-x: hidden; }
+        .fixed-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.98)),
+            url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover; background-position: center; z-index: -1;
+        }
+        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); transition: all 0.4s ease; }
+        .glass-card:hover { border-color: rgba(59, 130, 246, 0.4); transform: translateY(-5px); background: rgba(255, 255, 255, 0.06); }
+        .nav-glass { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .fade-up { animation: fadeUp 1s ease-out forwards; opacity: 0; transform: translateY(30px); }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="fixed-bg"></div>
+
+    <nav class="fixed w-full z-50 nav-glass top-0">
+        <div class="max-w-7xl mx-auto px-6 h-24 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-4 group">
+                <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 -rotate-45"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" /></svg></div>
+                <div><h1 class="text-2xl font-bold tracking-tight text-white leading-none">KA152</h1><p class="text-[10px] font-bold text-blue-400 uppercase tracking-[0.3em]">Blog & Haberler</p></div>
+            </a>
+            <button onclick="toggleMenu()" class="group flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 hover:bg-white/5 transition-all"><span class="text-xs font-bold uppercase tracking-widest text-slate-300 group-hover:text-white">MENÜ</span></button>
+        </div>
+    </nav>
+
+    <div id="mobileMenu" class="fixed inset-0 z-[60] bg-[#0f172a] transform translate-x-full transition-transform duration-700 flex flex-col justify-center items-center">
+        <button onclick="toggleMenu()" class="absolute top-8 right-8 p-4 text-slate-400 hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-10 h-10"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></button>
+        <nav class="flex flex-col gap-10 text-center">
+            <a href="index.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Ana Sayfa</a>
+            <a href="proje.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Proje Detayları</a>
+            <a href="ekip.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Ekip&İletişim</a>
+            <a href="blog.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-500 transition-all">Haberler</a>
+            <a href="sss-degerlendirme.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">SSS&Anket</a>
+        </nav>
+    </div>
+
+    <header class="pt-40 pb-20 px-6 text-center fade-up">
+        <h1 class="text-5xl md:text-7xl font-black text-white mb-6">Güncel Haberler</h1>
+        <p class="text-xl text-slate-400 max-w-2xl mx-auto">Projemizden son gelişmeler, duyurular ve etkinlikler.</p>
+    </header>
+
+    <section class="py-10 px-6 min-h-[400px]">
+        <div class="max-w-7xl mx-auto">
+            <div id="blog-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="col-span-3 text-center text-slate-500 italic">Haberler yükleniyor...</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-10 px-6">
+        <div class="max-w-3xl mx-auto glass-card p-6 rounded-2xl flex flex-col md:flex-row items-center gap-6 border-l-4 border-l-green-500 fade-up">
+            <div class="text-left flex-1">
+                <h2 class="text-xl font-bold text-white mb-1 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                    E-Bülten Aboneliği
+                </h2>
+                <p class="text-slate-400 text-sm">Gelişmelerden anında haberdar olun.</p>
+            </div>
+            
+            <form onsubmit="aboneOl(event)" class="flex w-full md:w-auto gap-2">
+                <input type="email" id="abone-mail" placeholder="E-posta adresiniz" required class="flex-1 px-4 py-2 bg-slate-900/50 border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-green-500 transition-colors">
+                <button id="abone-btn" type="submit" class="px-6 py-2 bg-green-600 hover:bg-green-500 text-white font-bold rounded-lg text-sm transition-all whitespace-nowrap">Kayıt Ol</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="border-t border-white/5 bg-slate-900/90 py-10 text-center mt-10">
+        <div class="max-w-3xl mx-auto px-6">
+            <p class="text-slate-600 text-xs font-bold uppercase tracking-widest">© 2026 KA152 Project</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('translate-x-full'); }
+        const DB_URL = "https://ka152-proje-default-rtdb.firebaseio.com"; 
+        
+        // 1. HABERLERİ ÇEK
+        fetch(DB_URL + "/veri.json").then(r => r.json()).then(data => {
+            const grid = document.getElementById('blog-grid');
+            
+            if(data && data.blog && data.blog.length > 0) {
+                grid.innerHTML = "";
+                
+                // --- DÜZELTİLEN KISIM BURASI ---
+                // (h) yerine (h, i) yazıldı. Artık i değişkenini tanıyor.
+                data.blog.forEach((h, i) => {
+                    grid.innerHTML += `
+                        <div class="glass-card rounded-3xl overflow-hidden hover:scale-[1.02] transition-transform duration-500 group flex flex-col h-full">
+                            <div class="h-56 overflow-hidden relative">
+                                <img src="${h.resim}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                                <div class="absolute top-4 left-4 bg-slate-900/80 px-3 py-1 rounded-lg text-xs font-bold text-white backdrop-blur-sm">${h.tarih}</div>
+                            </div>
+                            <div class="p-8 flex flex-col flex-1">
+                                <h3 class="text-xl font-bold text-white mb-4 leading-tight">${h.baslik}</h3>
+                                <p class="text-slate-400 text-sm leading-relaxed mb-6 flex-1 line-clamp-4">${h.metin}</p>
+                                <a href="haber-detay.html?id=${i}" class="text-blue-400 font-bold text-sm flex items-center gap-2 hover:text-white transition-colors">Devamını Oku <span>→</span></a>
+                            </div>
+                        </div>
+                    `;
+                });
+                // --------------------------------
+                
+            } else { 
+                grid.innerHTML = `<div class="col-span-3 text-center text-slate-400 py-10 bg-white/5 rounded-3xl">Henüz haber girişi yapılmadı. <br> <span class="text-xs text-slate-500">(Yönetim panelinden "TÜMÜNÜ KAYDET" dediğinize emin olun)</span></div>`; 
+            }
+        });
+
+        // 2. ABONE OLMA İŞLEMİ
+        async function aboneOl(e) {
+            e.preventDefault();
+            const btn = document.getElementById('abone-btn');
+            const mail = document.getElementById('abone-mail').value;
+            btn.innerText = "⏳ ..."; 
+            btn.disabled = true;
+
+            try {
+                let res = await fetch(DB_URL + "/veri/aboneler.json");
+                let aboneler = await res.json() || [];
+                
+                if(!aboneler.includes(mail)) {
+                    aboneler.push(mail);
+                    await fetch(DB_URL + "/veri/aboneler.json", { method: "PUT", body: JSON.stringify(aboneler) });
+                    alert("✅ Başarıyla abone oldunuz! Teşekkürler.");
+                } else {
+                    alert("⚠️ Zaten abone listesindesiniz.");
+                }
+                document.getElementById('abone-mail').value = "";
+            } catch(err) { 
+                console.error(err);
+                alert("❌ Bir hata oluştu, lütfen tekrar deneyin."); 
+            }
+            
+            btn.innerText = "Kayıt Ol"; 
+            btn.disabled = false;
+        }
+    </script>
+</body>
+</html>
