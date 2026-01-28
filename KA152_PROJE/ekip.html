@@ -1,19 +1,14 @@
 <!DOCTYPE html>
-<html lang="tr" class="scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ekip ve İletişim | KA152</title>
+    <title>Meet the Team | KA152</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0f172a; color: white; overflow-x: hidden; }
-        .fixed-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.98)),
-            url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1920&q=80');
-            background-size: cover; background-position: center; z-index: -1;
-        }
+        .fixed-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.98)), url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; z-index: -1; }
         .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); transition: all 0.4s ease; }
         .glass-card:hover { border-color: rgba(59, 130, 246, 0.4); transform: translateY(-5px); background: rgba(255, 255, 255, 0.06); }
         .nav-glass { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
@@ -28,70 +23,82 @@
         <div class="max-w-7xl mx-auto px-6 h-24 flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-4 group cursor-pointer">
                 <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-500/20"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 -rotate-45"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" /></svg></div>
-                <div><h1 class="text-2xl font-bold tracking-tight text-white leading-none">KA152</h1><p class="text-[10px] font-bold text-blue-400 uppercase tracking-[0.3em]">Ekip & İletişim</p></div>
+                <div><h1 class="text-2xl font-bold tracking-tight text-white leading-none">KA152</h1><p class="text-[10px] font-bold text-blue-400 uppercase tracking-[0.3em]">Team & Contact</p></div>
             </a>
-            <button onclick="toggleMenu()" class="group flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 hover:bg-white/5 transition-all"><span class="text-xs font-bold uppercase tracking-widest text-slate-300 group-hover:text-white">MENÜ</span></button>
+            <button onclick="toggleMenu()" class="group flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 hover:bg-white/5 transition-all"><span class="text-xs font-bold uppercase tracking-widest text-slate-300 group-hover:text-white">MENU</span></button>
         </div>
     </nav>
 
     <div id="mobileMenu" class="fixed inset-0 z-[60] bg-[#0f172a] transform translate-x-full transition-transform duration-700 flex flex-col justify-center items-center">
         <button onclick="toggleMenu()" class="absolute top-8 right-8 p-4 text-slate-400 hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-10 h-10"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></button>
         <nav class="flex flex-col gap-10 text-center">
-            <a href="index.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Ana Sayfa</a>
-            <a href="proje.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Proje Detayları</a>
-            <a href="ekip.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-500 transition-all">Ekip & İletişim</a>
-            <a href="blog.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Haberler</a>
-            <a href="sss-degerlendirme.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">SSS & Anket</a>
+            <a href="index.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Home</a>
+            <a href="proje.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Project Details</a>
+            <a href="ekip.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-500 hover:to-blue-500 transition-all">Team & Contact</a>
+            <a href="sss-degerlendirme.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Activities&Evaluation</a>
         </nav>
     </div>
 
     <header class="pt-40 pb-20 px-6 text-center fade-up">
-        <h1 class="text-5xl md:text-7xl font-black text-white mb-6">Projenin Mimarları</h1>
-        <p class="text-xl text-slate-400 max-w-2xl mx-auto">Bu projeye hayat veren ortak kuruluşlarımız ve özverili ekibimiz.</p>
+        <h1 class="text-5xl md:text-7xl font-black text-white mb-6">Meet the Team</h1>
+        <p class="text-xl text-slate-400 max-w-2xl mx-auto">The dedicated minds and passionate hearts behind the "Aviation for Everyone" project.</p>
     </header>
 
-    <section id="partners" class="py-10 px-6">
-        <div class="max-w-6xl mx-auto text-center">
-            <h2 class="text-blue-500 font-bold tracking-widest uppercase text-sm mb-10">PROJE ORTAKLARIMIZ</h2>
-            <div id="ortak-listesi" class="grid md:grid-cols-2 gap-8 justify-center">
-                <div class="col-span-2 text-center text-slate-500 italic">Ortak bilgileri yükleniyor...</div>
-            </div>
+    <section class="py-10 px-6">
+        <div id="ekip-container" class="max-w-7xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="col-span-full text-center text-slate-500 italic">Loading team members...</div>
         </div>
     </section>
 
-    <section class="py-20 px-6">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-16">Yönetim Ekibi</h2>
-            <div id="ekip-listesi" class="grid md:grid-cols-3 gap-8"><div class="col-span-3 text-center text-slate-500 italic">Ekip bilgileri yükleniyor...</div></div>
-        </div>
-    </section>
+    <section id="contact" class="py-20 px-6 border-t border-white/5">
+        <div class="max-w-5xl mx-auto text-center">
+            <h2 class="text-3xl font-bold text-white mb-12">Connect With Us</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                
+                <div class="flex flex-col gap-6">
+                    <div class="glass-card p-8 rounded-2xl flex flex-col items-center justify-center h-full border-l-4 border-l-blue-500 hover:bg-white/5 transition-all">
+                        <div class="w-16 h-16 bg-blue-600/20 rounded-full flex items-center justify-center mb-4 text-blue-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Email Us</h3>
+                        <p class="text-slate-400 text-sm mb-6">aviationforall.project@gmail.com</p>
+                        <a href="mailto:aviationforall.project@gmail.com" class="px-8 py-3 bg-blue-600 hover:bg-blue-500 rounded-full text-sm font-bold text-white transition-colors shadow-lg shadow-blue-600/20 w-full md:w-auto">
+                            Send Email
+                        </a>
+                    </div>
 
-    <section id="contact" class="py-20 px-6">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-16">Bize Ulaşın</h2>
-            <div class="grid lg:grid-cols-2 gap-12">
-                <div class="space-y-6">
-                    <a href="https://instagram.com/" target="_blank" class="glass-card p-6 rounded-2xl flex items-center gap-6 group hover:bg-white/5 transition-all block">
-                        <div class="w-14 h-14 rounded-xl bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 flex items-center justify-center text-white shadow-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
-                        <div><h3 class="text-xl font-bold text-white">Instagram</h3><p class="text-slate-400">Tıkla ve Takip Et</p></div>
-                        <div class="ml-auto text-slate-500">↗</div>
-                    </a>
-                    <a href="mailto:iletisim@proje.com" class="glass-card p-6 rounded-2xl flex items-center gap-6 group hover:bg-white/5 transition-all block">
-                        <div class="w-14 h-14 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></div>
-                        <div><h3 class="text-xl font-bold text-white">E-Posta</h3><p class="text-slate-400">iletisim@proje.com</p></div>
-                        <div class="ml-auto text-slate-500">↗</div>
-                    </a>
+                    <div class="glass-card p-8 rounded-2xl flex flex-col items-center justify-center h-full border-l-4 border-l-pink-500 hover:bg-white/5 transition-all">
+                        <div class="w-16 h-16 bg-pink-600/20 rounded-full flex items-center justify-center mb-4 text-pink-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Follow Our Journey</h3>
+                        <p class="text-slate-400 text-sm mb-6">@aviation_for_everyone</p>
+                        <a href="https://www.instagram.com/aviation_for_everyone?igsh=eWt6NnFzazB6ZDBr" target="_blank" class="px-8 py-3 bg-pink-600 hover:bg-pink-500 rounded-full text-sm font-bold text-white transition-colors shadow-lg shadow-pink-600/20 w-full md:w-auto">
+                            Visit Instagram
+                        </a>
+                    </div>
                 </div>
 
-                <div class="glass-card p-8 rounded-3xl border-t-4 border-t-blue-500">
-                    <h3 class="text-xl font-bold text-white mb-6">Mesaj Gönderin</h3>
+                <div class="glass-card p-8 rounded-2xl text-left border-t-4 border-t-white/20">
+                    <h3 class="text-xl font-bold text-white mb-2">Send us a Message</h3>
+                    <p class="text-slate-400 text-sm mb-6">Have a question? Fill out the form below.</p>
                     <form onsubmit="mesajGonder(event)" class="space-y-4">
-                        <input type="text" id="msg-ad" placeholder="Adınız Soyadınız" required class="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-xl text-white focus:outline-none focus:border-blue-500 transition-colors">
-                        <input type="email" id="msg-mail" placeholder="E-Posta Adresiniz" required class="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-xl text-white focus:outline-none focus:border-blue-500 transition-colors">
-                        <textarea id="msg-text" rows="3" placeholder="Mesajınız..." required class="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-xl text-white focus:outline-none focus:border-blue-500 transition-colors"></textarea>
-                        <button id="msg-btn" class="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all">Gönder</button>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1 ml-1">Your Name</label>
+                            <input type="text" id="msg-ad" required class="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-xl text-white focus:outline-none focus:border-blue-500 transition-colors placeholder-slate-600">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1 ml-1">Your Email</label>
+                            <input type="email" id="msg-mail" required class="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-xl text-white focus:outline-none focus:border-blue-500 transition-colors placeholder-slate-600">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1 ml-1">Message</label>
+                            <textarea id="msg-text" rows="4" required class="w-full px-4 py-3 bg-slate-900/50 border border-white/10 rounded-xl text-white focus:outline-none focus:border-blue-500 transition-colors placeholder-slate-600"></textarea>
+                        </div>
+                        <button id="msg-btn" class="w-full py-4 bg-white text-slate-900 font-bold rounded-xl hover:bg-slate-200 transition-all shadow-lg mt-2">Send Message</button>
                     </form>
                 </div>
+
             </div>
         </div>
     </section>
@@ -107,61 +114,53 @@
         const DB_URL = "https://ka152-proje-default-rtdb.firebaseio.com"; 
 
         fetch(DB_URL + "/veri.json").then(r => r.json()).then(data => {
-            const ekipContainer = document.getElementById('ekip-listesi');
-            const ortakContainer = document.getElementById('ortak-listesi');
-            
+            const container = document.getElementById('ekip-container');
             if(data && data.ekip && data.ekip.length > 0) {
-                ekipContainer.innerHTML = "";
-                data.ekip.forEach(uye => {
-                    ekipContainer.innerHTML += `
-                        <div class="glass-card p-8 rounded-3xl group fade-up hover:bg-white/5 transition-all text-center border-t-4 border-t-blue-500/50">
-                            <div class="w-24 h-24 mx-auto rounded-full mb-6 overflow-hidden border-2 border-white/20 shadow-xl"><img src="${uye.resim}" class="w-full h-full object-cover"></div>
-                            <h4 class="text-2xl font-bold text-white mb-2">${uye.ad}</h4>
-                            <span class="inline-block px-3 py-1 bg-blue-500/20 text-blue-300 text-xs font-bold rounded-full tracking-wider uppercase mb-4">${uye.gorev}</span>
-                        </div>`;
-                });
-            } else { ekipContainer.innerHTML = `<div class="col-span-3 text-center text-slate-400">Henüz ekip üyesi eklenmedi.</div>`; }
+                container.innerHTML = "";
+                data.ekip.forEach((uye, index) => {
+                    const colors = ['blue', 'purple', 'green', 'yellow', 'pink', 'cyan'];
+                    const color = colors[index % colors.length];
+                    const px = uye.px !== undefined ? uye.px : 50;
+                    const py = uye.py !== undefined ? uye.py : 50;
+                    const sc = uye.sc || 1;
 
-            // ORTAK LOGO GÖRÜNÜMÜ
-            if(data && data.ortaklar && data.ortaklar.length > 0) {
-                ortakContainer.innerHTML = "";
-                data.ortaklar.forEach(o => {
-                    ortakContainer.innerHTML += `
-                        <div class="glass-card p-10 rounded-3xl flex flex-col items-center justify-center fade-up">
-                            
-                            <div class="w-32 h-32 bg-white rounded-full flex items-center justify-center mb-6 shadow-lg border-4 border-blue-500/20 overflow-hidden p-2">
-                                <img src="${o.logo}" class="w-full h-full object-contain">
+                    container.innerHTML += `
+                        <div class="glass-card p-8 rounded-3xl group hover:bg-white/5 transition-all flex flex-col h-full border-t-4 border-t-${color}-500">
+                            <div class="w-40 h-40 mx-auto mb-6 overflow-hidden relative bg-slate-800 rounded-2xl border-2 border-${color}-400 shadow-[0_0_20px_rgba(var(--${color}-rgb),0.4)]">
+                                <img src="${uye.resim}" style="width:100%; height:100%; object-fit:cover; object-position: ${px}% ${py}%; transform: scale(${sc});" class="pointer-events-none">
                             </div>
-                            
-                            <h3 class="text-2xl font-bold text-white">${o.ad}</h3>
-                            <p class="text-slate-400 mt-2">${o.rol}</p>
-                        </div>`;
+                            <div class="text-center mb-6">
+                                <h3 class="text-2xl font-bold text-white">${uye.ad}</h3>
+                                <p class="text-${color}-400 text-xs font-bold uppercase tracking-wider mt-2">${uye.gorev}</p>
+                            </div>
+                            <p class="text-slate-400 text-sm leading-relaxed text-justify">
+                                ${uye.bio || "No biography available yet."}
+                            </p>
+                        </div>
+                    `;
                 });
-            } else { ortakContainer.innerHTML = `<div class="col-span-2 text-center text-slate-400">Henüz proje ortağı eklenmedi.</div>`; }
+            } else { container.innerHTML = `<div class="col-span-full text-center text-slate-400">No team members found.</div>`; }
         });
 
-        // MESAJ GÖNDERME
+        // Renkler için RGB değişkenleri
+        document.documentElement.style.setProperty('--blue-rgb', '59, 130, 246');
+        document.documentElement.style.setProperty('--purple-rgb', '168, 85, 247');
+        document.documentElement.style.setProperty('--green-rgb', '34, 197, 94');
+        document.documentElement.style.setProperty('--yellow-rgb', '234, 179, 8');
+        document.documentElement.style.setProperty('--pink-rgb', '236, 72, 153');
+        document.documentElement.style.setProperty('--cyan-rgb', '6, 182, 212');
+
         async function mesajGonder(e) {
             e.preventDefault();
             const btn = document.getElementById('msg-btn');
-            btn.innerText = "Gönderiliyor..."; btn.disabled = true;
-
-            const yeniMesaj = {
-                ad: document.getElementById('msg-ad').value,
-                email: document.getElementById('msg-mail').value,
-                mesaj: document.getElementById('msg-text').value,
-                tarih: new Date().toLocaleDateString('tr-TR')
-            };
-
+            btn.innerText = "Sending..."; btn.disabled = true;
+            const yeniMesaj = { ad: document.getElementById('msg-ad').value, email: document.getElementById('msg-mail').value, mesaj: document.getElementById('msg-text').value, tarih: new Date().toLocaleDateString('tr-TR') };
             try {
-                let res = await fetch(DB_URL + "/veri/mesajlar.json");
-                let mesajlar = await res.json() || [];
-                mesajlar.push(yeniMesaj);
+                let res = await fetch(DB_URL + "/veri/mesajlar.json"); let mesajlar = await res.json() || []; mesajlar.push(yeniMesaj);
                 await fetch(DB_URL + "/veri/mesajlar.json", { method: "PUT", body: JSON.stringify(mesajlar) });
-                alert("Mesajınız başarıyla iletildi! Teşekkürler.");
-                document.querySelector('form').reset();
-            } catch(err) { alert("Bir hata oluştu."); }
-            btn.innerText = "Gönder"; btn.disabled = false;
+                alert("Message sent successfully!"); document.querySelector('form').reset();
+            } catch(err) { alert("Error sending message."); }
+            btn.innerText = "Send Message"; btn.disabled = false;
         }
     </script>
 </body>

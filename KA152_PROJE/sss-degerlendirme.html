@@ -1,230 +1,89 @@
 <!DOCTYPE html>
-<html lang="tr" class="scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SSS & Anketler | KA152</title>
+    <title>Activities & Evaluation | KA152</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0f172a; color: white; overflow-x: hidden; }
-        
-        .fixed-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.98)),
-            url('https://images.unsplash.com/photo-1559067515-bf7d70449629?auto=format&fit=crop&w=1920&q=80');
-            background-size: cover; background-position: center; z-index: -1;
-        }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); transition: all 0.3s ease;
-        }
-        .nav-glass {
-            background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        /* AKORDEON STİLİ */
-        .accordion-item { border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .accordion-header { cursor: pointer; padding: 20px; width: 100%; text-align: left; display: flex; justify-content: space-between; align-items: center; }
-        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding: 0 20px; color: #94a3b8; }
-        .accordion-header.active .icon { transform: rotate(180deg); }
-        .accordion-header.active + .accordion-content { max-height: 200px; padding-bottom: 20px; }
-
+        .fixed-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.98)), url('https://images.unsplash.com/photo-1517999144091-3d9dca6d1e43?auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; z-index: -1; }
+        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); transition: all 0.4s ease; }
+        .glass-card:hover { border-color: rgba(59, 130, 246, 0.4); transform: translateY(-5px); background: rgba(255, 255, 255, 0.06); }
+        .nav-glass { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
         .fade-up { animation: fadeUp 1s ease-out forwards; opacity: 0; transform: translateY(30px); }
-        .delay-100 { animation-delay: 0.2s; }
-        .delay-200 { animation-delay: 0.4s; }
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body class="antialiased selection:bg-blue-500 selection:text-white">
-
     <div class="fixed-bg"></div>
 
     <nav class="fixed w-full z-50 nav-glass top-0">
         <div class="max-w-7xl mx-auto px-6 h-24 flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-4 group cursor-pointer">
-                <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 -rotate-45"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" /></svg>
-                </div>
-                <div>
-                    <h1 class="text-2xl font-bold tracking-tight text-white leading-none">KA152</h1>
-                    <p class="text-[10px] font-bold text-blue-400 uppercase tracking-[0.3em]">Destek & Anket</p>
-                </div>
+                <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-500/20"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 -rotate-45"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" /></svg></div>
+                <div><h1 class="text-2xl font-bold tracking-tight text-white leading-none">KA152</h1><p class="text-[10px] font-bold text-blue-400 uppercase tracking-[0.3em]">Activities</p></div>
             </a>
-            <button onclick="toggleMenu()" class="group flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 hover:bg-white/5 transition-all">
-                <span class="text-xs font-bold uppercase tracking-widest text-slate-300 group-hover:text-white">MENÜ</span>
-            </button>
+            <button onclick="toggleMenu()" class="group flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 hover:bg-white/5 transition-all"><span class="text-xs font-bold uppercase tracking-widest text-slate-300 group-hover:text-white">MENU</span></button>
         </div>
     </nav>
 
     <div id="mobileMenu" class="fixed inset-0 z-[60] bg-[#0f172a] transform translate-x-full transition-transform duration-700 flex flex-col justify-center items-center">
         <button onclick="toggleMenu()" class="absolute top-8 right-8 p-4 text-slate-400 hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-10 h-10"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></button>
         <nav class="flex flex-col gap-10 text-center">
-            <a href="index.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Ana Sayfa</a>
-            <a href="proje.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Proje Detayları</a>
-            <a href="ekip.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Ekip & İletişim</a>
-            <a href="blog.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Haberler</a>
-            <a href="sss-degerlendirme.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-500 hover:to-blue-500 transition-all">SSS & Anket</a>
+            <a href="index.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Home</a>
+            <a href="proje.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Project Details</a>
+            <a href="ekip.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Team & Contact</a>
+            <a href="sss-degerlendirme.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-500 hover:to-blue-500 transition-all">Activities&Evaluation</a>
         </nav>
     </div>
 
-    <header class="pt-40 pb-10 px-6 text-center fade-up">
-        <h1 class="text-4xl md:text-6xl font-black text-white mb-6">Süreç ve Destek</h1>
-        <p class="text-xl text-slate-400 max-w-2xl mx-auto">Anketlere katılarak projemize yön verin ve sıkça sorulan sorulara göz atın.</p>
+    <header class="pt-40 pb-20 px-6 text-center fade-up">
+        <h1 class="text-5xl md:text-7xl font-black text-white mb-6">Activities & Evaluation</h1>
+        <p class="text-xl text-slate-400 max-w-2xl mx-auto">Measuring our impact. Your feedback shapes the future of accessible aviation.</p>
     </header>
 
-    <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-10 pb-20">
-        
-        <div class="flex flex-col gap-10">
+    <section class="py-10 px-6">
+        <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
             
-            <section class="fade-up delay-100">
-                <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                    <span class="w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center text-sm">1</span> 
-                    Ön Araştırma
-                </h2>
-                
-                <div class="glass-card rounded-3xl p-8 text-center border-t-4 border-t-purple-500">
-                    <p class="text-slate-300 mb-8 text-sm">
-                        Projeye başlamadan önce beklentilerinizi ve mevcut durumunuzu ölçmemize yardımcı olun.<br>
-                        <span class="text-xs text-slate-500 italic block mt-1">Preliminary research survey before the project.</span>
-                    </p>
-                    
-                    <div class="flex flex-col gap-4">
-                        <a href="https://forms.gle/gjH1V8T1Ag7P3zQf7" target="_blank" class="group flex items-center justify-between px-5 py-4 bg-slate-800/50 border border-white/10 rounded-xl hover:border-purple-500/50 hover:bg-purple-600/10 transition-all">
-                            <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-sm">TR</div>
-                                <div class="text-left">
-                                    <div class="text-white font-bold text-sm">Ön Araştırma</div>
-                                    <div class="text-[10px] text-slate-400 uppercase tracking-wider">Türkçe Form</div>
-                                </div>
-                            </div>
-                            <div class="text-slate-500 group-hover:text-white transition-colors">↗</div>
-                        </a>
-
-                        <a href="https://forms.gle/xX1Rkbd9kHRAS7gD7" target="_blank" class="group flex items-center justify-between px-5 py-4 bg-slate-800/50 border border-white/10 rounded-xl hover:border-purple-500/50 hover:bg-purple-600/10 transition-all">
-                            <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-sm">EN</div>
-                                <div class="text-left">
-                                    <div class="text-white font-bold text-sm">Pre-Research</div>
-                                    <div class="text-[10px] text-slate-400 uppercase tracking-wider">English Form</div>
-                                </div>
-                            </div>
-                            <div class="text-slate-500 group-hover:text-white transition-colors">↗</div>
-                        </a>
-                    </div>
+            <div class="glass-card p-10 rounded-3xl border-t-4 border-t-yellow-500 flex flex-col h-full hover:-translate-y-2 transition-transform duration-300">
+                <div class="w-16 h-16 bg-yellow-500/20 rounded-2xl flex items-center justify-center mb-6 text-yellow-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
                 </div>
-            </section>
+                <h3 class="text-2xl font-bold text-white mb-4">Preliminary Research Survey</h3>
+                <p class="text-slate-400 text-base leading-relaxed mb-8 flex-1">
+                    To be filled out by participants <b>before</b> the project begins. This helps us understand your initial knowledge about aviation accessibility and your expectations.
+                </p>
+                <a href="https://forms.gle/xX1Rkbd9kHRAS7gD7" target="_blank" class="w-full py-4 bg-yellow-600 hover:bg-yellow-500 text-white font-bold rounded-xl text-center transition-all shadow-lg shadow-yellow-600/20">
+                    Start Survey
+                </a>
+            </div>
 
-            <section class="fade-up delay-100">
-                <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                    <span class="w-8 h-8 rounded-full bg-green-600 flex items-center justify-center text-sm">2</span> 
-                    Değerlendirme
-                </h2>
-                
-                <div class="glass-card rounded-3xl p-8 text-center border-t-4 border-t-green-500">
-                    <p class="text-slate-300 mb-8 text-sm">
-                        Proje bitiminde etkileri ölçmek için lütfen uygun olan dildeki formu seçiniz.<br>
-                        <span class="text-xs text-slate-500 italic block mt-1">Post-project evaluation survey.</span>
-                    </p>
-                    
-                    <div class="flex flex-col gap-4">
-                        <a href="https://forms.gle/BNsZ8YmSJ51NXJXC8" target="_blank" class="group flex items-center justify-between px-5 py-4 bg-slate-800/50 border border-white/10 rounded-xl hover:border-green-500/50 hover:bg-green-600/10 transition-all">
-                            <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center font-bold text-sm">TR</div>
-                                <div class="text-left">
-                                    <div class="text-white font-bold text-sm">Değerlendirme</div>
-                                    <div class="text-[10px] text-slate-400 uppercase tracking-wider">Türkçe Form</div>
-                                </div>
-                            </div>
-                            <div class="text-slate-500 group-hover:text-white transition-colors">↗</div>
-                        </a>
-
-                        <a href="https://forms.gle/MLU4QvRjn8JoPd7y7" target="_blank" class="group flex items-center justify-between px-5 py-4 bg-slate-800/50 border border-white/10 rounded-xl hover:border-green-500/50 hover:bg-green-600/10 transition-all">
-                            <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center font-bold text-sm">EN</div>
-                                <div class="text-left">
-                                    <div class="text-white font-bold text-sm">Evaluation</div>
-                                    <div class="text-[10px] text-slate-400 uppercase tracking-wider">English Form</div>
-                                </div>
-                            </div>
-                            <div class="text-slate-500 group-hover:text-white transition-colors">↗</div>
-                        </a>
-                    </div>
+            <div class="glass-card p-10 rounded-3xl border-t-4 border-t-green-500 flex flex-col h-full hover:-translate-y-2 transition-transform duration-300">
+                <div class="w-16 h-16 bg-green-500/20 rounded-2xl flex items-center justify-center mb-6 text-green-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                 </div>
-            </section>
+                <h3 class="text-2xl font-bold text-white mb-4">Project End Evaluation Survey</h3>
+                <p class="text-slate-400 text-base leading-relaxed mb-8 flex-1">
+                    To be filled out <b>after</b> the project concludes. This helps us measure what you've learned and how the project has impacted your perspective on aviation.
+                </p>
+                <a href="https://forms.gle/MLU4QvRjn8JoPd7y7" target="_blank" class="w-full py-4 bg-green-600 hover:bg-green-500 text-white font-bold rounded-xl text-center transition-all shadow-lg shadow-green-600/20">
+                    Start Survey
+                </a>
+            </div>
+
         </div>
+    </section>
 
-        <section class="fade-up delay-200">
-            <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                <span class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-sm">?</span> 
-                Sıkça Sorulan Sorular
-            </h2>
-            
-            <div class="glass-card rounded-3xl overflow-hidden">
-                <div class="accordion-item">
-                    <button class="accordion-header" onclick="toggleAccordion(this)">
-                        <span class="font-bold text-lg">Konaklama nasıl olacak?</span>
-                        <svg class="icon w-6 h-6 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                    </button>
-                    <div class="accordion-content">
-                        <p>Katılımcılar, proje merkezine yakın, güvenli ve tüm ihtiyaçların karşılandığı otel veya yurtlarda konaklayacaktır. Odalar 2-3 kişiliktir.</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <button class="accordion-header" onclick="toggleAccordion(this)">
-                        <span class="font-bold text-lg">Katılım ücretli mi?</span>
-                        <svg class="icon w-6 h-6 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                    </button>
-                    <div class="accordion-content">
-                        <p>Hayır. Erasmus+ KA152 kapsamında konaklama, yemek ve ulaşım masrafları proje bütçesinden karşılanmaktadır.</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <button class="accordion-header" onclick="toggleAccordion(this)">
-                        <span class="font-bold text-lg">Yanımda ne getirmeliyim?</span>
-                        <svg class="icon w-6 h-6 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                    </button>
-                    <div class="accordion-content">
-                        <p>Kişisel bakım eşyalarınız, rahat kıyafetler ve varsa kullandığınız ilaçları getirmeniz yeterlidir. Diğer malzemeler sağlanacaktır.</p>
-                    </div>
-                </div>
-                <div class="accordion-item" style="border-bottom: none;">
-                    <button class="accordion-header" onclick="toggleAccordion(this)">
-                        <span class="font-bold text-lg">İngilizce seviyem ne olmalı?</span>
-                        <svg class="icon w-6 h-6 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                    </button>
-                    <div class="accordion-content">
-                        <p>Temel düzeyde iletişim kurabilmeniz yeterlidir. Amacımız dil pratiği yapmak ve anlaşmaktır, mükemmel olmak zorunda değilsiniz.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </div>
-
-    <footer class="border-t border-white/5 bg-slate-900/90 py-16 text-center">
+    <footer class="border-t border-white/5 bg-slate-900/90 py-16 text-center mt-20">
         <div class="max-w-3xl mx-auto px-6">
-            <div class="flex items-center justify-center gap-4 mb-6">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg" alt="AB Bayrağı" class="w-12 h-auto">
-                <span class="text-left text-xs font-bold text-slate-300 uppercase leading-tight">Co-funded by the<br>Erasmus+ Programme</span>
-            </div>
-            <p class="text-slate-400 text-sm italic mb-8">"Bu proje Avrupa Komisyonu tarafından desteklenmektedir."</p>
             <p class="text-slate-600 text-xs font-bold uppercase tracking-widest">© 2026 KA152 Project</p>
         </div>
     </footer>
 
     <script>
         function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('translate-x-full'); }
-        
-        function toggleAccordion(button) {
-            button.classList.toggle('active');
-            var content = button.nextElementSibling;
-            if (content.style.maxHeight) { content.style.maxHeight = null; } 
-            else { content.style.maxHeight = content.scrollHeight + "px"; }
-        }
     </script>
 </body>
 </html>

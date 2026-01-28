@@ -9,24 +9,42 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0f172a; color: white; }
-        .fixed-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.98)),
-            url('https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?auto=format&fit=crop&w=1920&q=80');
-            background-size: cover; background-position: center; z-index: -1;
-        }
         .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
         .input-glass { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); color: white; transition: all 0.3s ease; }
         .input-glass:focus { outline: none; border-color: #3b82f6; background: rgba(15, 23, 42, 0.9); box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); }
         .cursor-grab { cursor: grab; } .cursor-grab:active { cursor: grabbing; }
         .sortable-ghost { opacity: 0.4; background: #3b82f6; border: 2px dashed white; } 
-        .sortable-drag { background: #1e293b; opacity: 1; transform: scale(1.02); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5); z-index: 9999; }
-        .drag-handle { cursor: grab; padding: 10px; } .drag-handle:active { cursor: grabbing; }
+        .drag-handle { cursor: grab; padding: 10px; } 
+        
+        /* ORTAK (SPONSOR) RESİM KUTUSU - YUVARLAK */
+        .partner-editor-container {
+            width: 100px; height: 100px; 
+            border-radius: 50%; /* TAM YUVARLAK */
+            overflow: hidden;
+            position: relative;
+            background-color: #1e293b;
+            border: 3px solid #22d3ee; /* Cyan Çerçeve */
+            box-shadow: 0 0 15px rgba(34, 211, 238, 0.4);
+            cursor: move;
+            touch-action: none;
+        }
+
+        /* EKİP RESİM KUTUSU - KARE */
+        .team-editor-container {
+            width: 120px; height: 120px; 
+            border-radius: 16px; /* KARE (Hafif köşeli) */
+            overflow: hidden; position: relative; background-color: #1e293b;
+            border: 4px solid #3b82f6; cursor: move; touch-action: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        .editor-img { width: 100%; height: 100%; object-fit: cover; object-position: center; pointer-events: none; transition: transform 0.1s; }
+
         ::-webkit-calendar-picker-indicator { filter: invert(1); }
     </style>
 </head>
-<body class="p-6 md:p-12 min-h-screen">
-    <div class="fixed-bg"></div>
+<body class="p-6 md:p-12 min-h-screen bg-[url('https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?auto=format&fit=crop&w=1920&q=80')] bg-cover bg-fixed bg-no-repeat">
+    <div class="fixed inset-0 bg-slate-900/90 -z-10"></div>
     <script>
         const DB_URL = "https://ka152-proje-default-rtdb.firebaseio.com"; 
         if (localStorage.getItem("admin") !== "true") window.location.href = "admin-login.html";
@@ -40,7 +58,7 @@
         </div>
     </header>
 
-    <div class="max-w-5xl mx-auto space-y-8 pb-24">
+    <div class="max-w-5xl mx-auto space-y-8 pb-32">
         
         <div class="grid md:grid-cols-2 gap-8">
             <div class="glass-card p-6 rounded-3xl border-l-4 border-l-yellow-500">
@@ -62,50 +80,73 @@
 
         <div class="glass-card p-8 rounded-3xl border-l-4 border-l-cyan-500">
             <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold text-white">🤝 Proje Ortakları</h2>
+                <h2 class="text-xl font-bold text-white">🤝 Proje Ortakları & Sponsorlar</h2>
                 <span class="text-xs bg-cyan-900/50 text-cyan-300 px-2 py-1 rounded">Sıralamak için ☰ ikonundan sürükleyin</span>
             </div>
-            <div class="grid md:grid-cols-3 gap-3 mb-4">
+            <div class="grid md:grid-cols-2 gap-3 mb-4">
                 <input type="text" id="ortak-ad" placeholder="Kurum Adı" class="input-glass p-3 rounded-xl">
-                <input type="text" id="ortak-rol" placeholder="Rolü" class="input-glass p-3 rounded-xl">
-                <input type="text" id="ortak-logo" placeholder="Logo Linki (Boşsa harf olur)" class="input-glass p-3 rounded-xl">
+                <input type="text" id="ortak-rol" placeholder="Rolü (Örn: Main Sponsor)" class="input-glass p-3 rounded-xl">
             </div>
-            <button onclick="ortakEkle()" class="w-full py-2 bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-xl mb-4">+ Ortak Ekle</button>
+            
+            <div class="flex flex-col md:flex-row gap-6 mb-4 bg-white/5 p-4 rounded-xl border border-white/10 items-center">
+                <div class="flex-1 w-full">
+                    <label class="block text-xs text-slate-400 mb-2">Kurum Logosu (Sürükleyip Ayarla)</label>
+                    <input type="file" id="ortak-file" accept="image/*" class="text-sm text-slate-300 w-full" onchange="resimIsle(this, 'ortak-preview-img', 'partner')">
+                </div>
+                <div class="flex flex-col items-center">
+                    <div id="partner-drag-zone" class="partner-editor-container hidden group">
+                        <img id="ortak-preview-img" class="editor-img" draggable="false">
+                    </div>
+                </div>
+            </div>
+
+            <input type="hidden" id="p-pos-x" value="50">
+            <input type="hidden" id="p-pos-y" value="50">
+
+            <button onclick="ortakEkle()" class="w-full py-3 bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-xl mb-6">+ Ortak Ekle</button>
             <ul id="ortak-listesi" class="space-y-3 min-h-[50px]"></ul>
         </div>
 
-        <div class="glass-card p-8 rounded-3xl border-l-4 border-l-blue-500">
+        <div class="glass-card p-8 rounded-3xl border-l-4 border-l-blue-500 relative" id="ekip-form-alani">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-bold text-white">👥 Yönetim Ekibi</h2>
                 <span class="text-xs bg-blue-900/50 text-blue-300 px-2 py-1 rounded">Sıralamak için ☰ ikonundan sürükleyin</span>
             </div>
-            <div class="grid md:grid-cols-3 gap-3 mb-4">
-                <input type="text" id="yeni-ad" placeholder="Ad Soyad" class="input-glass p-3 rounded-xl">
-                <input type="text" id="yeni-gorev" placeholder="Görevi" class="input-glass p-3 rounded-xl">
-                <input type="text" id="yeni-resim" placeholder="Resim Linki" class="input-glass p-3 rounded-xl">
+
+            <div id="edit-mode-badge" class="hidden bg-yellow-500/20 text-yellow-300 p-2 rounded-lg mb-4 text-xs font-bold text-center border border-yellow-500/30">
+                ✏️ ŞU AN DÜZENLEME MODUNDASINIZ
+                <button onclick="editIptal()" class="ml-2 underline text-white">İptal Et</button>
             </div>
-            <button onclick="ekipEkle()" class="w-full py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl mb-4">+ Ekip Ekle</button>
+
+            <div class="grid md:grid-cols-2 gap-3 mb-3">
+                <input type="text" id="yeni-ad" placeholder="Ad Soyad" class="input-glass p-3 rounded-xl">
+                <input type="text" id="yeni-gorev" placeholder="Görevi (İngilizce)" class="input-glass p-3 rounded-xl">
+            </div>
+            
+            <div class="flex flex-col md:flex-row gap-6 mb-3 bg-white/5 p-6 rounded-xl border border-white/10 items-center">
+                <div class="flex-1 w-full">
+                    <label class="block text-xs text-slate-400 mb-2">Profil Fotoğrafı Seçin</label>
+                    <input type="file" id="ekip-file" accept="image/*" class="text-sm text-slate-300 w-full mb-2" onchange="resimIsle(this, 'ekip-preview-img', 'team')">
+                </div>
+                <div class="flex flex-col items-center">
+                    <div id="team-drag-zone" class="team-editor-container hidden group">
+                        <img id="ekip-preview-img" class="editor-img" draggable="false">
+                    </div>
+                </div>
+            </div>
+
+            <input type="hidden" id="pos-x" value="50"> <input type="hidden" id="pos-y" value="50">
+            <textarea id="yeni-bio" rows="3" placeholder="Biyografi (İngilizce Hikaye)" class="input-glass w-full p-3 rounded-xl mb-3"></textarea>
+            
+            <div class="grid md:grid-cols-2 gap-3 mb-4">
+                <input type="text" id="yeni-insta" placeholder="Instagram Linki" class="input-glass p-3 rounded-xl text-sm">
+                <input type="text" id="yeni-mail" placeholder="E-Mail Adresi" class="input-glass p-3 rounded-xl text-sm">
+            </div>
+
+            <button id="ekip-btn" onclick="ekipEkle()" class="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl mb-4 transition-all">+ Ekip Ekle</button>
             <ul id="ekip-listesi" class="space-y-3 min-h-[50px]"></ul>
         </div>
 
-        <div class="glass-card p-8 rounded-3xl border-l-4 border-l-purple-500">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-xl font-bold text-white">📰 Blog & Haberler</h2>
-                <span class="text-xs bg-purple-900/50 text-purple-300 px-2 py-1 rounded">Sıralamak için ☰ ikonundan sürükleyin</span>
-            </div>
-            
-            <div class="space-y-4 mb-6">
-                <input type="text" id="blog-baslik" placeholder="Haber Başlığı" class="input-glass w-full p-4 rounded-xl text-lg font-bold">
-                <div class="bg-purple-500/10 border border-purple-500/20 p-4 rounded-xl">
-                    <label class="block text-xs text-purple-300 font-bold uppercase mb-2">📸 Fotoğraf Alanı</label>
-                    <input type="text" id="blog-resim" placeholder="Fotoğraf Linkini Buraya Yapıştır (Örn: https://...)" class="input-glass w-full p-3 rounded-xl">
-                </div>
-                <textarea id="blog-metin" rows="4" placeholder="Haberin içeriği..." class="input-glass w-full p-4 rounded-xl"></textarea>
-            </div>
-            
-            <button onclick="blogEkle()" class="w-full py-3 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-xl shadow-lg mb-6">+ HABERİ YAYINLA</button>
-            <ul id="blog-listesi" class="space-y-3 min-h-[50px]"></ul>
-        </div>
     </div>
 
     <div class="fixed bottom-0 left-0 w-full p-4 bg-slate-900/90 backdrop-blur-xl border-t border-white/10 flex justify-center items-center gap-4 z-50">
@@ -114,95 +155,196 @@
     </div>
 
     <script>
-        let ekipData = [], ortakData = [], blogData = [], mesajlarData = [], abonelerData = [];
+        let ekipData = [], ortakData = [], mesajlarData = [], abonelerData = [];
+        let editIndex = -1;
 
-        document.addEventListener('DOMContentLoaded', () => {
-            initSortable('ekip-listesi', 'ekipData');
-            initSortable('ortak-listesi', 'ortakData');
-            initSortable('blog-listesi', 'blogData');
-        });
+        // --- ORTAK (PARTNER) SÜRÜKLEME MANTIĞI ---
+        const partnerZone = document.getElementById('partner-drag-zone');
+        const partnerImg = document.getElementById('ortak-preview-img');
+        let pDragging=false, pStartX, pStartY, pCurX=50, pCurY=50;
 
-        function initSortable(elId, dataVarName) {
-            const el = document.getElementById(elId);
-            if (!el) return;
-            new Sortable(el, {
-                animation: 150, handle: '.drag-handle', ghostClass: 'sortable-ghost', dragClass: 'sortable-drag',
-                onEnd: function (evt) {
-                    let list = window[dataVarName];
-                    if (list) { const item = list.splice(evt.oldIndex, 1)[0]; list.splice(evt.newIndex, 0, item); }
-                }
+        if(partnerZone){
+            partnerZone.addEventListener('mousedown', (e)=>{pDragging=true; pStartX=e.pageX; pStartY=e.pageY;});
+            window.addEventListener('mousemove', (e)=>{
+                if(!pDragging)return; e.preventDefault();
+                let dx=(pStartX-e.pageX)*0.5, dy=(pStartY-e.pageY)*0.5;
+                let nx=Math.max(0,Math.min(100,pCurX+dx)), ny=Math.max(0,Math.min(100,pCurY+dy));
+                partnerImg.style.objectPosition=`${nx}% ${ny}%`;
+                document.getElementById('p-pos-x').value=nx; document.getElementById('p-pos-y').value=ny;
             });
+            window.addEventListener('mouseup', ()=>{if(pDragging){pCurX=parseFloat(document.getElementById('p-pos-x').value); pCurY=parseFloat(document.getElementById('p-pos-y').value); pDragging=false;}});
         }
 
-        // VERİLERİ ÇEK
+        // --- EKİP (TEAM) SÜRÜKLEME MANTIĞI ---
+        const teamZone = document.getElementById('team-drag-zone');
+        const teamImg = document.getElementById('ekip-preview-img');
+        let tDragging=false, tStartX, tStartY, tCurX=50, tCurY=50;
+
+        if(teamZone){
+            teamZone.addEventListener('mousedown', (e)=>{tDragging=true; tStartX=e.pageX; tStartY=e.pageY;});
+            window.addEventListener('mousemove', (e)=>{
+                if(!tDragging)return; e.preventDefault();
+                let dx=(tStartX-e.pageX)*0.3, dy=(tStartY-e.pageY)*0.3;
+                let nx=Math.max(0,Math.min(100,tCurX+dx)), ny=Math.max(0,Math.min(100,tCurY+dy));
+                teamImg.style.objectPosition=`${nx}% ${ny}%`;
+                document.getElementById('pos-x').value=nx; document.getElementById('pos-y').value=ny;
+            });
+            window.addEventListener('mouseup', ()=>{if(tDragging){tCurX=parseFloat(document.getElementById('pos-x').value); tCurY=parseFloat(document.getElementById('pos-y').value); tDragging=false;}});
+        }
+
+        // RESİM YÜKLEME (Generic)
+        function resimIsle(input, previewId, type) {
+            const file = input.files[0];
+            if(!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width, height = img.height;
+                    const MAX_WIDTH = 800; 
+                    if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
+                    canvas.width = width; canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+                    
+                    const preview = document.getElementById(previewId);
+                    preview.src = dataUrl;
+                    
+                    if(type === 'partner') {
+                        document.getElementById('partner-drag-zone').classList.remove('hidden');
+                        pCurX=50; pCurY=50; partnerImg.style.objectPosition='50% 50%';
+                    } else {
+                        document.getElementById('team-drag-zone').classList.remove('hidden');
+                        tCurX=50; tCurY=50; teamImg.style.objectPosition='50% 50%';
+                    }
+                }
+                img.src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+
         fetch(DB_URL + "/veri.json").then(r => r.json()).then(data => {
             if(data) {
                 document.getElementById('inp-tarih').value = data.tarih || "";
                 window.ekipData = data.ekip || [];
                 window.ortakData = data.ortaklar || [];
-                window.blogData = data.blog || [];
                 window.mesajlarData = data.mesajlar || [];
                 window.abonelerData = data.aboneler || [];
-                renderEkip(); renderOrtak(); renderBlog(); renderMesajlar(); renderAboneler();
-            } else {
-                window.ekipData = []; window.ortakData = []; window.blogData = []; window.mesajlarData = []; window.abonelerData = [];
-            }
+                renderEkip(); renderOrtak(); renderMesajlar(); renderAboneler();
+            } else { window.ekipData = []; window.ortakData = []; }
+            initSortable('ekip-listesi', 'ekipData');
+            initSortable('ortak-listesi', 'ortakData');
         });
 
-        // --- ORTAK RENDER (LOGO GÜNCELLEMESİ) ---
+        function initSortable(elId, dataVarName) {
+            const el = document.getElementById(elId);
+            if (!el) return;
+            new Sortable(el, { animation: 150, handle: '.drag-handle', ghostClass: 'sortable-ghost', onEnd: function (evt) { let list = window[dataVarName]; if (list) { const item = list.splice(evt.oldIndex, 1)[0]; list.splice(evt.newIndex, 0, item); } } });
+        }
+
+        // --- ORTAK FONKSİYONLARI ---
         function renderOrtak() { 
-            const ul = document.getElementById('ortak-listesi'); ul.innerHTML=""; 
+            const ul=document.getElementById('ortak-listesi'); ul.innerHTML=""; 
             window.ortakData.forEach((o,i)=>{ 
+                const px = o.px || 50, py = o.py || 50;
                 ul.innerHTML+=`
-                <li class="flex justify-between p-3 bg-cyan-500/5 rounded-xl border border-cyan-500/20 items-center hover:bg-cyan-500/10 transition-colors select-none">
-                    <div class="flex gap-3 items-center">
+                <li class="flex justify-between p-3 bg-cyan-500/5 rounded-xl border border-cyan-500/20 items-center select-none">
+                    <div class="flex gap-4 items-center">
                         <div class="drag-handle text-cyan-400 hover:text-white text-2xl px-2 cursor-grab">☰</div>
-                        
-                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center overflow-hidden border border-cyan-500/30">
-                            <img src="${o.logo}" class="w-full h-full object-cover">
+                        <div class="w-16 h-16 rounded-full bg-white flex items-center justify-center overflow-hidden border-2 border-cyan-500 shadow-md">
+                            <img src="${o.logo}" style="width:100%; height:100%; object-fit:cover; object-position: ${px}% ${py}%;" class="pointer-events-none">
                         </div>
-                        
-                        <div><div class="text-sm font-bold text-white">${o.ad}</div><div class="text-xs text-cyan-400">${o.rol}</div></div>
+                        <div>
+                            <div class="text-sm font-bold text-white">${o.ad}</div>
+                            <div class="text-xs text-slate-400">${o.rol}</div>
+                        </div>
                     </div>
-                    <button onclick="ortakSil(${i})" class="text-red-400 font-bold hover:text-red-200">✖</button>
+                    <button onclick="ortakSil(${i})" class="text-red-400 font-bold hover:text-red-200 p-2">✖</button>
                 </li>`
             }); 
         }
         function ortakEkle() { 
             const ad=document.getElementById('ortak-ad').value; 
             const rol=document.getElementById('ortak-rol').value; 
-            let logo=document.getElementById('ortak-logo').value; 
-            // Logo yoksa harf avatarı yap
-            if(!logo) logo = `https://ui-avatars.com/api/?name=${ad}&background=random&color=fff`;
-
-            if(ad && rol){
-                window.ortakData.push({ad, rol, logo}); 
+            const preview = document.getElementById('ortak-preview-img');
+            const px = parseFloat(document.getElementById('p-pos-x').value);
+            const py = parseFloat(document.getElementById('p-pos-y').value);
+            
+            let logo = preview.src && !document.getElementById('partner-drag-zone').classList.contains('hidden') ? preview.src : `https://ui-avatars.com/api/?name=${ad}&background=random`; 
+            if(ad){
+                window.ortakData.push({ad,rol,logo,px,py}); 
                 renderOrtak(); 
-                document.getElementById('ortak-ad').value=""; document.getElementById('ortak-rol').value=""; document.getElementById('ortak-logo').value=""; 
+                document.getElementById('ortak-ad').value=""; 
+                document.getElementById('ortak-rol').value=""; 
+                document.getElementById('ortak-file').value=""; 
+                document.getElementById('partner-drag-zone').classList.add('hidden');
             } 
         }
-        function ortakSil(i) { window.ortakData.splice(i,1); renderOrtak(); }
+        function ortakSil(i) { if(confirm("Silinsin mi?")){ window.ortakData.splice(i,1); renderOrtak(); } }
 
-        // --- DİĞERLERİ (AYNI) ---
-        function renderEkip() { const ul=document.getElementById('ekip-listesi'); ul.innerHTML=""; window.ekipData.forEach((u,i)=>{ ul.innerHTML+=`<li class="flex justify-between p-3 bg-white/5 rounded-xl border border-white/10 items-center hover:bg-white/10 transition-colors select-none"><div class="flex gap-3 items-center"><div class="drag-handle text-slate-400 hover:text-white text-2xl px-2 cursor-grab">☰</div><img src="${u.resim}" class="w-10 h-10 rounded-full object-cover"><div><div class="text-sm font-bold text-white">${u.ad}</div><div class="text-xs text-blue-400">${u.gorev}</div></div></div><button onclick="ekipSil(${i})" class="text-red-400 font-bold hover:text-red-200">✖</button></li>`}); }
-        function ekipEkle() { const ad=document.getElementById('yeni-ad').value; const gorev=document.getElementById('yeni-gorev').value; let resim=document.getElementById('yeni-resim').value||`https://ui-avatars.com/api/?name=${ad}&background=random`; if(ad){window.ekipData.push({ad,gorev,resim}); renderEkip(); document.getElementById('yeni-ad').value=""} }
-        function ekipSil(i) { window.ekipData.splice(i,1); renderEkip(); }
-        function renderBlog() { const ul=document.getElementById('blog-listesi'); ul.innerHTML=""; window.blogData.forEach((h,i)=>{ ul.innerHTML+=`<li class="flex gap-4 p-4 bg-purple-500/5 border border-purple-500/20 rounded-xl items-center hover:bg-purple-500/10 transition-colors select-none"><div class="drag-handle text-purple-400 hover:text-white text-2xl px-2 cursor-grab">☰</div><img src="${h.resim}" class="w-16 h-16 rounded-lg object-cover bg-slate-800 pointer-events-none"><div class="flex-1"><div class="font-bold text-white text-sm">${h.baslik}</div><div class="text-xs text-purple-300 line-clamp-1">${h.metin}</div></div><button onclick="blogSil(${i})" class="text-red-400 font-bold hover:text-red-200">✖</button></li>`}); }
-        function blogEkle() { const baslik=document.getElementById('blog-baslik').value; const resim=document.getElementById('blog-resim').value||"https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=500&q=80"; const metin=document.getElementById('blog-metin').value; if(baslik&&metin){window.blogData.push({baslik,resim,metin,tarih:new Date().toLocaleDateString('tr-TR')}); renderBlog(); document.getElementById('blog-baslik').value=""; document.getElementById('blog-metin').value=""; document.getElementById('blog-resim').value="";} }
-        function blogSil(i) { window.blogData.splice(i,1); renderBlog(); }
+        // --- EKİP FONKSİYONLARI ---
+        function renderEkip() { 
+            const ul=document.getElementById('ekip-listesi'); ul.innerHTML=""; 
+            window.ekipData.forEach((u,i)=>{ 
+                const px = u.px || 50, py = u.py || 50;
+                ul.innerHTML+=`
+                <li class="flex justify-between p-4 bg-white/5 rounded-xl border border-white/10 items-start hover:bg-white/10 transition-colors select-none group">
+                    <div class="flex gap-4 items-center">
+                        <div class="drag-handle text-slate-400 hover:text-white text-2xl px-2 cursor-grab">☰</div>
+                        <div class="w-14 h-14 rounded-2xl overflow-hidden relative bg-slate-800 border border-white/20">
+                            <img src="${u.resim}" style="width:100%; height:100%; object-fit:cover; object-position: ${px}% ${py}%;" class="pointer-events-none">
+                        </div>
+                        <div><div class="text-sm font-bold text-white">${u.ad}</div><div class="text-xs text-blue-400 font-bold uppercase">${u.gorev}</div></div>
+                    </div>
+                    <div class="flex gap-2"><button onclick="ekipDuzenle(${i})" class="p-2 text-blue-400 hover:text-white">✏️</button><button onclick="ekipSil(${i})" class="p-2 text-red-400 hover:text-white">✖</button></div>
+                </li>`
+            }); 
+        }
+        function ekipDuzenle(index) {
+            editIndex = index; const kisi = window.ekipData[index];
+            document.getElementById('yeni-ad').value = kisi.ad; document.getElementById('yeni-gorev').value = kisi.gorev; document.getElementById('yeni-bio').value = kisi.bio || "";
+            document.getElementById('yeni-insta').value = kisi.insta || ""; document.getElementById('yeni-mail').value = kisi.mail || "";
+            tCurX = kisi.px || 50; tCurY = kisi.py || 50;
+            const preview = document.getElementById('ekip-preview-img'); preview.src = kisi.resim;
+            teamImg.style.objectPosition = `${tCurX}% ${tCurY}%`;
+            document.getElementById('team-drag-zone').classList.remove('hidden');
+            document.getElementById('ekip-btn').innerText = "🔄 Güncelle";
+            document.getElementById('ekip-btn').classList.replace('bg-blue-600', 'bg-yellow-600');
+            document.getElementById('edit-mode-badge').classList.remove('hidden');
+            document.getElementById('ekip-form-alani').scrollIntoView({behavior: "smooth"});
+        }
+        function editIptal() {
+            editIndex = -1;
+            document.getElementById('yeni-ad').value = ""; document.getElementById('yeni-gorev').value = ""; document.getElementById('yeni-bio').value = ""; 
+            document.getElementById('yeni-insta').value = ""; document.getElementById('yeni-mail').value = ""; document.getElementById('ekip-file').value = "";
+            document.getElementById('team-drag-zone').classList.add('hidden');
+            document.getElementById('ekip-btn').innerText = "+ Ekip Ekle";
+            document.getElementById('ekip-btn').classList.replace('bg-yellow-600', 'bg-blue-600');
+            document.getElementById('edit-mode-badge').classList.add('hidden');
+        }
+        function ekipEkle() { 
+            const ad = document.getElementById('yeni-ad').value; const gorev = document.getElementById('yeni-gorev').value; const bio = document.getElementById('yeni-bio').value; 
+            const insta = document.getElementById('yeni-insta').value; const mail = document.getElementById('yeni-mail').value;
+            const px = parseFloat(document.getElementById('pos-x').value); const py = parseFloat(document.getElementById('pos-y').value);
+            const preview = document.getElementById('ekip-preview-img');
+            let resim = preview.src && !document.getElementById('team-drag-zone').classList.contains('hidden') ? preview.src : `https://ui-avatars.com/api/?name=${ad}&background=random`;
+            if(ad) {
+                const yeniVeri = {ad, gorev, resim, bio, insta, mail, px, py};
+                if(editIndex > -1) { window.ekipData[editIndex] = yeniVeri; alert("Kişi güncellendi!"); editIptal(); } 
+                else { window.ekipData.push(yeniVeri); }
+                renderEkip(); if(editIndex === -1) editIptal();
+            } 
+        }
+        function ekipSil(i) { if(confirm("Silmek istediğine emin misin?")) { window.ekipData.splice(i,1); renderEkip(); if(i === editIndex) editIptal(); } }
+
+        // --- DİĞERLERİ ---
         function renderMesajlar() { const d=document.getElementById('mesaj-kutusu'); if(window.mesajlarData.length===0){d.innerHTML='<p class="text-slate-500 text-xs italic">Henüz mesaj yok.</p>';return;} d.innerHTML=""; [...window.mesajlarData].reverse().forEach((m,idx)=>{ const rIdx=window.mesajlarData.length-1-idx; d.innerHTML+=`<div class="bg-white/5 p-4 rounded-xl border border-white/10 relative group"><div class="flex justify-between items-start mb-2"><div><h4 class="font-bold text-yellow-400 text-sm">${m.ad}</h4><p class="text-xs text-slate-400">${m.email}</p></div><span class="text-[10px] text-slate-500 bg-black/30 px-2 py-1 rounded">${m.tarih}</span></div><p class="text-sm text-white">${m.mesaj}</p><button onclick="mesajSil(${rIdx})" class="absolute top-2 right-2 text-red-400 opacity-0 group-hover:opacity-100 font-bold text-xs">SİL</button></div>`}); }
         function mesajSil(i){ if(confirm("Silinsin mi?")){window.mesajlarData.splice(i,1); renderMesajlar();} }
         function renderAboneler() { const d=document.getElementById('abone-kutusu'); if(window.abonelerData.length===0){d.innerHTML='<p class="text-slate-500 text-xs italic">Henüz abone yok.</p>';return;} d.innerHTML=""; window.abonelerData.forEach((a,i)=>{ d.innerHTML+=`<div class="bg-green-500/10 border border-green-500/20 px-3 py-1 rounded-lg flex items-center gap-2"><span class="text-sm text-green-300">${a}</span><button onclick="aboneSil(${i})" class="text-red-400 font-bold text-xs">×</button></div>`}); }
         function aboneSil(i){ window.abonelerData.splice(i,1); renderAboneler(); }
-
-        // --- KAYDET ---
-        async function kaydet() {
-            const btn=document.getElementById('btn-kaydet'); const msg=document.getElementById('mesaj');
-            btn.innerText="⏳ Kaydediliyor..."; btn.classList.add('opacity-50');
-            const veri={tarih:document.getElementById('inp-tarih').value, ekip:window.ekipData, ortaklar:window.ortakData, blog:window.blogData, mesajlar:window.mesajlarData, aboneler:window.abonelerData};
-            await fetch(DB_URL + "/veri.json", { method: "PUT", body: JSON.stringify(veri) });
-            msg.classList.remove('hidden'); btn.innerText="💾 TÜMÜNÜ KAYDET"; btn.classList.remove('opacity-50'); setTimeout(()=>msg.classList.add('hidden'),3000);
-        }
+        async function kaydet() { const btn=document.getElementById('btn-kaydet'); const msg=document.getElementById('mesaj'); btn.innerText="⏳ Kaydediliyor..."; btn.classList.add('opacity-50'); const veri={tarih:document.getElementById('inp-tarih').value, ekip:window.ekipData, ortaklar:window.ortakData, blog:window.blogData, mesajlar:window.mesajlarData, aboneler:window.abonelerData}; await fetch(DB_URL + "/veri.json", { method: "PUT", body: JSON.stringify(veri) }); msg.classList.remove('hidden'); btn.innerText="💾 TÜMÜNÜ KAYDET"; btn.classList.remove('opacity-50'); setTimeout(()=>msg.classList.add('hidden'),3000); }
         function cikis() { localStorage.removeItem("admin"); window.location.href = "admin-login.html"; }
     </script>
 </body>

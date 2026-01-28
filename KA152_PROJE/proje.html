@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="tr" class="scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proje Detayları | KA152</title>
+    <title>Project Details | KA152</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -19,12 +19,24 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); transition: all 0.4s ease;
         }
+        .glass-card:hover {
+            border-color: rgba(59, 130, 246, 0.4); transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.06);
+        }
         .nav-glass {
             background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
         .fade-up { animation: fadeUp 1s ease-out forwards; opacity: 0; transform: translateY(30px); }
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+        /* MODAL (POPUP) STİLİ */
+        #formModal {
+            backdrop-filter: blur(10px);
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        #formModal.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        #formModal:not(.hidden) { opacity: 1; visibility: visible; pointer-events: auto; }
     </style>
 </head>
 <body class="antialiased selection:bg-blue-500 selection:text-white">
@@ -39,11 +51,11 @@
                 </div>
                 <div>
                     <h1 class="text-2xl font-bold tracking-tight text-white leading-none">KA152</h1>
-                    <p class="text-[10px] font-bold text-blue-400 uppercase tracking-[0.3em]">Proje Detayları</p>
+                    <p class="text-[10px] font-bold text-blue-400 uppercase tracking-[0.3em]">Project Details</p>
                 </div>
             </a>
             <button onclick="toggleMenu()" class="group flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 hover:bg-white/5 transition-all">
-                <span class="text-xs font-bold uppercase tracking-widest text-slate-300 group-hover:text-white">MENÜ</span>
+                <span class="text-xs font-bold uppercase tracking-widest text-slate-300 group-hover:text-white">MENU</span>
             </button>
         </div>
     </nav>
@@ -51,56 +63,119 @@
     <div id="mobileMenu" class="fixed inset-0 z-[60] bg-[#0f172a] transform translate-x-full transition-transform duration-700 flex flex-col justify-center items-center">
         <button onclick="toggleMenu()" class="absolute top-8 right-8 p-4 text-slate-400 hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-10 h-10"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></button>
         <nav class="flex flex-col gap-10 text-center">
-            <a href="index.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Ana Sayfa</a>
-            <a href="proje.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-500 hover:to-blue-500 transition-all">Proje Detayları</a>
-            <a href="ekip.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Ekip & İletişim</a>
-            <a href="blog.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Haberler</a>
-            <a href="sss-degerlendirme.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">SSS & Anket</a>
+            <a href="index.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Home</a>
+            <a href="proje.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-500 hover:to-blue-500 transition-all">Project Details</a>
+            <a href="ekip.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Team & Contact</a>
+            <a href="sss-degerlendirme.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Activities&Evaluation</a>
         </nav>
     </div>
 
     <header class="pt-40 pb-20 px-6 text-center fade-up">
-        <h1 class="text-5xl md:text-7xl font-black text-white mb-6">Proje Yol Haritası</h1>
-        <p class="text-xl text-slate-400 max-w-2xl mx-auto">Erasmus+ KA152 kapsamında gerçekleştireceğimiz etkinlikler, hedefler ve süreç takvimi.</p>
+        <h1 class="text-5xl md:text-7xl font-black text-white mb-6">Our Vision & Roadmap</h1>
+        <p class="text-xl text-slate-400 max-w-2xl mx-auto">Understanding why we embarked on this journey and our core objectives to transform the aviation experience.</p>
     </header>
+
+    <section class="pb-20 px-6">
+        <div class="max-w-4xl mx-auto glass-card p-10 rounded-3xl border-t-4 border-t-blue-500 fade-up">
+            <h2 class="text-3xl font-bold text-white mb-6">Why "Aviation for Everyone"?</h2>
+            <div class="space-y-4 text-slate-300 leading-relaxed text-lg">
+                <p>Air travel should be a bridge between cultures, yet for many, it remains a daunting challenge. In today’s aviation landscape, young people—especially those from rural backgrounds, facing socioeconomic barriers, or living with disabilities—often encounter significant accessibility hurdles.</p>
+                <p>From complex airport procedures to lack of inclusive physical infrastructure, the 'stress' of flying often outweighs the excitement of the journey.</p>
+                <p class="font-semibold text-white border-l-4 border-blue-500 pl-4">We launched KA152 - Aviation for Everyone to dismantle these barriers. We believe that the sky belongs to everyone, and no young explorer should be grounded by lack of information or inaccessible environments.</p>
+            </div>
+        </div>
+    </section>
 
     <section id="schedule" class="py-20 px-6">
         <div class="max-w-5xl mx-auto">
+            <h2 class="text-center text-3xl font-bold text-white mb-8">Our Core Objectives</h2>
+            <p class="text-center text-slate-400 max-w-2xl mx-auto mb-16">Our mission is built on three main pillars to transform the passenger experience:</p>
+            
             <div class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-blue-500 before:to-transparent">
                 <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
                     <div class="flex items-center justify-center w-10 h-10 rounded-full border border-blue-500 bg-slate-900 text-blue-500 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">1</div>
-                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-card p-6 rounded-2xl border-l-4 border-l-blue-500">
-                        <time class="font-bold text-blue-400 text-xs tracking-widest uppercase mb-1">HAZIRLIK AŞAMASI</time>
-                        <h3 class="text-xl font-bold text-white">Online Tanışma & Planlama</h3>
-                        <p class="text-slate-400 mt-2 text-sm">Katılımcıların seçilmesi, online toplantılar ile tanışma ve seyahat lojistiğinin planlanması.</p>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-card p-6 rounded-2xl border-l-4 border-l-blue-500 hover:bg-white/10 transition-colors">
+                        <time class="font-bold text-blue-400 text-xs tracking-widest uppercase mb-1">PILLAR 1</time>
+                        <h3 class="text-xl font-bold text-white">Demystifying the Airport</h3>
+                        <p class="text-slate-400 mt-2 text-sm">Simplifying complex airport processes through educational content and guides tailored for first-time flyers.</p>
                     </div>
                 </div>
                 <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
                     <div class="flex items-center justify-center w-10 h-10 rounded-full border border-white/20 bg-slate-900 text-slate-500 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">2</div>
-                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-card p-6 rounded-2xl border-l-4 border-l-purple-500">
-                        <time class="font-bold text-purple-400 text-xs tracking-widest uppercase mb-1">HAREKETLİLİK (1. GÜN)</time>
-                        <h3 class="text-xl font-bold text-white">Buluşma & Buz Kırıcılar</h3>
-                        <p class="text-slate-400 mt-2 text-sm">Proje lokasyonuna varış, yerleşme ve kültürlerarası kaynaşma oyunları.</p>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-card p-6 rounded-2xl border-l-4 border-l-purple-500 hover:bg-white/10 transition-colors">
+                        <time class="font-bold text-purple-400 text-xs tracking-widest uppercase mb-1">PILLAR 2</time>
+                        <h3 class="text-xl font-bold text-white">Fostering Inclusivity</h3>
+                        <p class="text-slate-400 mt-2 text-sm">Designing a stress-free travel model that addresses the specific needs of individuals with disabilities.</p>
                     </div>
                 </div>
                 <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
                     <div class="flex items-center justify-center w-10 h-10 rounded-full border border-white/20 bg-slate-900 text-slate-500 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">3</div>
-                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-card p-6 rounded-2xl border-l-4 border-l-green-500">
-                        <time class="font-bold text-green-400 text-xs tracking-widest uppercase mb-1">ATÖLYE ÇALIŞMALARI</time>
-                        <h3 class="text-xl font-bold text-white">Havacılık & Erişilebilirlik</h3>
-                        <p class="text-slate-400 mt-2 text-sm">Simülasyon eğitimleri, engelli bireyler için çözüm tasarımı workshopları ve sunumlar.</p>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-card p-6 rounded-2xl border-l-4 border-l-green-500 hover:bg-white/10 transition-colors">
+                        <time class="font-bold text-green-400 text-xs tracking-widest uppercase mb-1">PILLAR 3</time>
+                        <h3 class="text-xl font-bold text-white">Bridging the Gap</h3>
+                        <p class="text-slate-400 mt-2 text-sm">Reaching out to youth in rural and low-income areas to provide them with the tools and confidence to enter the world of aviation.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="details" class="py-20 px-6">
-        <div class="max-w-4xl mx-auto glass-card p-10 rounded-3xl">
-            <h2 class="text-3xl font-bold text-white mb-6">Neden Bu Proje?</h2>
-            <div class="space-y-4 text-slate-300 leading-relaxed">
-                <p>Havacılık sektörü hızla büyürken, toplumun bazı kesimleri (engelli bireyler, kırsal kesimdeki gençler) bu gelişmelerden uzak kalmaktadır. KA152 projemiz, bu "görünmez engelleri" kaldırmak için tasarlanmıştır.</p>
-                <p>Farklı ülkelerden gelen gençlerle birlikte, sadece teknik bir eğitim değil, aynı zamanda kültürel bir köprü kuruyoruz.</p>
+    <section class="py-20 px-6 border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-black text-white mb-4">Target Groups</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">"Aviation for Everyone" aims to reach young individuals aged 17-25 who feel excluded from the world of flight due to various challenges.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-card p-8 rounded-3xl border-t-4 border-t-blue-500 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-14 h-14 bg-blue-500/20 rounded-xl flex items-center justify-center mb-6 text-blue-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Youth from Rural Areas</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed text-justify">
+                        Many young people living in rural or geographically isolated regions lack exposure to international travel and airport environments. We aim to bridge this gap by providing them with the necessary knowledge and confidence to navigate the skies.
+                    </p>
+                </div>
+                <div class="glass-card p-8 rounded-3xl border-t-4 border-t-purple-500 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-14 h-14 bg-purple-500/20 rounded-xl flex items-center justify-center mb-6 text-purple-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 absolute" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Individuals with Disabilities</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed text-justify">
+                        Accessibility is a right, not a privilege. We focus on the unique needs of young passengers with physical or sensory disabilities, working towards a "stress-free" airport model that ensures dignity and ease of travel for everyone.
+                    </p>
+                </div>
+                <div class="glass-card p-8 rounded-3xl border-t-4 border-t-green-500 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-14 h-14 bg-green-500/20 rounded-xl flex items-center justify-center mb-6 text-green-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">First-Time Flyers</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed text-justify">
+                        The complexity and cost of aviation can be intimidating for those from low-income backgrounds. We support first-time flyers by demystifying airport procedures and showing that the world of aviation is open to them.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-6 border-t border-white/5">
+        <div class="max-w-3xl mx-auto">
+            <div class="glass-card p-12 rounded-3xl border-t-4 border-t-blue-500 text-center flex flex-col items-center hover:-translate-y-2 transition-transform duration-300">
+                <div class="w-20 h-20 bg-blue-500/20 rounded-2xl flex items-center justify-center mb-6 text-blue-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>
+                </div>
+                
+                <h2 class="text-3xl font-black text-white mb-4">Project Application Form</h2>
+                <p class="text-slate-400 text-lg mb-8 max-w-xl">
+                    Ready to take off? Join us on this incredible journey. Fill out the form to become a participant in the KA152 Aviation for Everyone project.
+                </p>
+                
+                <button onclick="openModal()" class="group relative inline-flex items-center justify-center px-10 py-4 font-bold text-white transition-all duration-200 bg-blue-600 rounded-xl hover:bg-blue-500 hover:scale-105 shadow-lg shadow-blue-600/30">
+                    <span>Apply Now</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                </button>
             </div>
         </div>
     </section>
@@ -108,16 +183,45 @@
     <footer class="border-t border-white/5 bg-slate-900/90 py-16 text-center mt-20">
         <div class="max-w-3xl mx-auto px-6">
             <div class="flex items-center justify-center gap-4 mb-6">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg" alt="AB Bayrağı" class="w-12 h-auto">
-                <span class="text-left text-xs font-bold text-slate-300 uppercase leading-tight">Co-funded by the<br>Erasmus+ Programme</span>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg" alt="EU Flag" class="w-12 h-auto">
+                <span class="text-left text-xs font-bold text-slate-300 uppercase leading-tight">Co-funded by the<br>Erasmus+ Programme<br>of the European Union</span>
             </div>
-            <p class="text-slate-400 text-sm italic mb-8">"Bu proje Avrupa Komisyonu tarafından desteklenmektedir."</p>
             <p class="text-slate-600 text-xs font-bold uppercase tracking-widest">© 2026 KA152 Project</p>
         </div>
     </footer>
 
+    <div id="formModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 hidden p-4">
+        <div class="relative w-full max-w-4xl bg-white rounded-2xl shadow-2xl overflow-hidden h-[90vh] flex flex-col">
+            <div class="flex justify-between items-center p-4 bg-slate-100 border-b">
+                <h3 class="text-slate-800 font-bold text-lg">Application Form</h3>
+                <button onclick="closeModal()" class="text-slate-500 hover:text-red-500 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+            <div class="flex-1 bg-white overflow-hidden">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdJLYjzKd3gpir8kwYJUUSThRM3QufWzGxGXH3Ve15eeEMY6g/viewform?embedded=true" class="w-full h-full border-0">Loading...</iframe>
+            </div>
+        </div>
+    </div>
+
     <script>
         function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('translate-x-full'); }
+        
+        function openModal() {
+            document.getElementById('formModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeModal() {
+            document.getElementById('formModal').classList.add('hidden');
+            document.body.style.overflow = 'auto'; 
+        }
+
+        document.getElementById('formModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
     </script>
 </body>
 </html>

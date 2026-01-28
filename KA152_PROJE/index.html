@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="tr" class="scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KA152 | Global Aviation</title>
+    <title>KA152 | Aviation for Everyone</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -21,16 +21,13 @@
         }
         .glass-card:hover {
             border-color: rgba(59, 130, 246, 0.4); transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.06); box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.15);
+            background: rgba(255, 255, 255, 0.06);
         }
         .nav-glass {
             background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
         .fade-up { animation: fadeUp 1s ease-out forwards; opacity: 0; transform: translateY(30px); }
-        .delay-100 { animation-delay: 0.2s; }
-        .delay-200 { animation-delay: 0.4s; }
-        .delay-300 { animation-delay: 0.6s; }
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
@@ -40,17 +37,17 @@
 
     <nav class="fixed w-full z-50 nav-glass top-0">
         <div class="max-w-7xl mx-auto px-6 h-24 flex justify-between items-center">
-            <div class="flex items-center gap-4 group cursor-pointer">
+            <a href="index.html" class="flex items-center gap-4 group cursor-pointer">
                 <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 -rotate-45"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" /></svg>
                 </div>
                 <div>
                     <h1 class="text-2xl font-bold tracking-tight text-white leading-none">KA152</h1>
-                    <p class="text-[10px] font-bold text-blue-400 uppercase tracking-[0.3em]">Erasmus+ Projesi</p>
+                    <p class="text-[10px] font-bold text-blue-400 uppercase tracking-[0.3em]">Aviation for Everyone</p>
                 </div>
-            </div>
+            </a>
             <button onclick="toggleMenu()" class="group flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 hover:bg-white/5 transition-all">
-                <span class="text-xs font-bold uppercase tracking-widest text-slate-300 group-hover:text-white">MENÜ</span>
+                <span class="text-xs font-bold uppercase tracking-widest text-slate-300 group-hover:text-white">MENU</span>
             </button>
         </div>
     </nav>
@@ -58,121 +55,86 @@
     <div id="mobileMenu" class="fixed inset-0 z-[60] bg-[#0f172a] transform translate-x-full transition-transform duration-700 flex flex-col justify-center items-center">
         <button onclick="toggleMenu()" class="absolute top-8 right-8 p-4 text-slate-400 hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-10 h-10"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></button>
         <nav class="flex flex-col gap-10 text-center">
-            <a href="index.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-500 hover:to-blue-500 transition-all">Ana Sayfa</a>
-            <a href="proje.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Proje Detayları</a>
-            <a href="ekip.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Ekip & İletişim</a>
-            <a href="blog.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Haberler</a>
-            <a href="sss-degerlendirme.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">SSS & Anket</a>
+            <a href="index.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-500 transition-all">Home</a>
+            <a href="proje.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Project Details</a>
+            <a href="ekip.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Team & Contact</a>
+            <a href="sss-degerlendirme.html" class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 hover:to-blue-500 transition-all">Activities</a>
         </nav>
     </div>
 
-    <header class="relative min-h-screen flex items-center justify-center pt-20 px-6">
+    <header class="relative min-h-screen flex flex-col items-center pt-36 md:pt-48 px-6 pb-20">
         <div class="text-center max-w-5xl fade-up">
             <div class="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-10 shadow-2xl">
                 <span class="flex h-3 w-3">
                   <span class="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-blue-400 opacity-75"></span>
                   <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
                 </span>
-                <span class="text-blue-100 text-sm font-bold uppercase tracking-widest">KA152 - Öğrenci Değişim Programı</span>
+                <span class="text-blue-100 text-sm font-bold uppercase tracking-widest">KA152 - Erasmus+ Project</span>
             </div>
-            <h1 class="text-6xl md:text-9xl font-black text-white tracking-tight mb-8 leading-[1.05] drop-shadow-2xl">
-                Gökyüzünde <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-blue-200 to-white">Engel Yoktur</span>
+            
+            <h1 class="text-5xl md:text-8xl font-black text-white tracking-tight mb-8 leading-[1.05] drop-shadow-2xl">
+                Breaking Barriers, <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-blue-200 to-white">Reaching The Sky</span>
             </h1>
-            <p class="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-14 font-light leading-relaxed">
-                Genç yolcular için kapsayıcı, erişilebilir ve stressiz bir havacılık deneyimi tasarlıyoruz. Sınırları birlikte kaldırıyoruz.
+            
+            <p class="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto mb-10 font-light leading-relaxed italic">
+                "Shaping an inclusive future where aviation is a right for every young soul, regardless of their background or physical abilities."
             </p>
+
+            <div class="max-w-2xl mx-auto glass-card p-6 rounded-2xl border-l-4 border-l-blue-500 mb-12 text-left">
+                <h3 class="text-blue-400 font-bold uppercase tracking-widest text-sm mb-2">OUR MISSION</h3>
+                <p class="text-slate-200">
+                    Our mission is to empower youth aged 17-25—especially those from rural areas, socio-economic challenges, or with disabilities—by demystifying the airport experience and making the skies accessible, stress-free, and welcoming for all.
+                </p>
+            </div>
+
             <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
-                <a href="proje.html" class="group relative px-10 py-5 bg-blue-600 rounded-2xl font-bold text-white shadow-lg shadow-blue-600/30 hover:bg-blue-500 transition-all overflow-hidden">
-                    <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                    <span class="relative flex items-center gap-3">
-                        PROJEYİ İNCELE
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" /></svg>
-                    </span>
+                <a href="proje.html" class="px-10 py-4 bg-white/10 border border-white/20 rounded-2xl font-bold text-white hover:bg-white/20 transition-all">
+                    Learn More
+                </a>
+                <a href="proje.html" class="px-10 py-4 bg-blue-600 rounded-2xl font-bold text-white shadow-lg shadow-blue-600/30 hover:bg-blue-500 transition-all">
+                    Apply Now
                 </a>
             </div>
-        </div>
-        <div class="absolute bottom-10 animate-bounce">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-slate-500"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
         </div>
     </header>
 
     <section id="countdown-area" class="py-10 px-6">
         <div class="max-w-4xl mx-auto text-center">
             <div class="glass-card p-10 rounded-3xl border border-blue-500/30">
-                <h3 class="text-blue-400 font-bold tracking-widest uppercase text-sm mb-4">HAREKETLİLİK ZAMANI</h3>
-                <h2 class="text-3xl md:text-5xl font-bold text-white mb-8">Take-off (Uçuş) İçin Geri Sayım</h2>
+                <h3 class="text-blue-400 font-bold tracking-widest uppercase text-sm mb-4">COUNTDOWN TO TAKEOFF</h3>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="bg-slate-900/50 rounded-xl p-4"><span id="gun" class="block text-4xl font-bold text-blue-500">00</span><span class="text-xs text-slate-400 uppercase">Gün</span></div>
-                    <div class="bg-slate-900/50 rounded-xl p-4"><span id="saat" class="block text-4xl font-bold text-white">00</span><span class="text-xs text-slate-400 uppercase">Saat</span></div>
-                    <div class="bg-slate-900/50 rounded-xl p-4"><span id="dakika" class="block text-4xl font-bold text-white">00</span><span class="text-xs text-slate-400 uppercase">Dakika</span></div>
-                    <div class="bg-slate-900/50 rounded-xl p-4"><span id="saniye" class="block text-4xl font-bold text-blue-500">00</span><span class="text-xs text-slate-400 uppercase">Saniye</span></div>
+                    <div class="bg-slate-900/50 rounded-xl p-4"><span id="gun" class="block text-4xl font-bold text-blue-500">00</span><span class="text-xs text-slate-400 uppercase">Days</span></div>
+                    <div class="bg-slate-900/50 rounded-xl p-4"><span id="saat" class="block text-4xl font-bold text-white">00</span><span class="text-xs text-slate-400 uppercase">Hours</span></div>
+                    <div class="bg-slate-900/50 rounded-xl p-4"><span id="dakika" class="block text-4xl font-bold text-white">00</span><span class="text-xs text-slate-400 uppercase">Minutes</span></div>
+                    <div class="bg-slate-900/50 rounded-xl p-4"><span id="saniye" class="block text-4xl font-bold text-blue-500">00</span><span class="text-xs text-slate-400 uppercase">Seconds</span></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-32 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid lg:grid-cols-2 gap-20 items-center mb-32">
-                <div class="fade-up delay-100">
-                    <h2 class="text-4xl md:text-6xl font-bold text-white mb-8 leading-tight">Amacımız <br><span class="text-blue-500">Sınırları Aşmak</span></h2>
-                    <p class="text-slate-400 text-lg leading-relaxed mb-10">Yurt dışından gelen öğrencilerle birlikte havacılığa karşı bilinç uyandırıyor, çevresel sürdürülebilirliği savunuyor ve engelleri kaldırıyoruz.</p>
-                    <div class="space-y-4">
-                        <div class="glass-card rounded-2xl p-6 flex items-center gap-6">
-                            <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" /></svg></div>
-                            <div><h4 class="text-white font-bold text-lg">Havacılık Bilinci</h4><p class="text-slate-400 text-sm">Havacılığı sevdirmek ve farkındalık yaratmak.</p></div>
-                        </div>
-                        <div class="glass-card rounded-2xl p-6 flex items-center gap-6">
-                            <div class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center text-green-400"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" /></svg></div>
-                            <div><h4 class="text-white font-bold text-lg">Sürdürülebilirlik</h4><p class="text-slate-400 text-sm">Çevresel sorunların önüne geçmek.</p></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="relative fade-up delay-200">
-                    <div class="absolute -inset-4 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-3xl blur-2xl opacity-20"></div>
-                    <div class="glass-card p-2 rounded-3xl relative overflow-hidden h-[500px]">
-                        <img src="https://images.unsplash.com/photo-1542296332-2e44a99cfef9?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover rounded-2xl opacity-80 hover:scale-105 transition-transform duration-700" alt="Team">
-                        <div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-slate-900 to-transparent">
-                            <p class="text-white font-bold text-xl">Uluslararası Takım</p>
-                            <p class="text-blue-400 text-sm uppercase tracking-widest">Erasmus+ KA152</p>
-                        </div>
-                    </div>
-                </div>
+    <section class="py-20 border-t border-white/5">
+        <div class="max-w-3xl mx-auto glass-card p-8 rounded-2xl flex flex-col md:flex-row items-center gap-6 border-l-4 border-l-green-500">
+            <div class="text-left flex-1">
+                <h2 class="text-xl font-bold text-white mb-1 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                    Stay Connected
+                </h2>
+                <p class="text-slate-400 text-sm">Join our newsletter to receive updates on our journey.</p>
             </div>
-            <div class="text-center mb-20 fade-up">
-                <span class="text-blue-500 font-bold tracking-widest uppercase text-xs">KAPSAYICILIK VİZYONU</span>
-                <h3 class="text-3xl md:text-5xl font-bold text-white mt-4">Kimi Hedefliyoruz?</h3>
-            </div>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="glass-card p-10 rounded-3xl text-center group cursor-pointer fade-up delay-100">
-                    <div class="w-16 h-16 mx-auto bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-400 mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75" transform="rotate(180 12 12)"/><circle cx="12" cy="12" r="10" /></svg></div>
-                    <h4 class="text-2xl font-bold text-white mb-4">Engelli Bireyler</h4>
-                    <p class="text-slate-400">Seyahat özgürlüğünün önündeki fiziksel engelleri kaldırıyoruz.</p>
-                </div>
-                <div class="glass-card p-10 rounded-3xl text-center group cursor-pointer fade-up delay-200">
-                    <div class="w-16 h-16 mx-auto bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-400 mb-6 group-hover:bg-indigo-600 group-hover:text-white transition-colors"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg></div>
-                    <h4 class="text-2xl font-bold text-white mb-4">Kırsal Gençlik</h4>
-                    <p class="text-slate-400">Daha önce gökyüzüyle tanışmamış gençlere fırsat sunuyoruz.</p>
-                </div>
-                <div class="glass-card p-10 rounded-3xl text-center group cursor-pointer fade-up delay-300">
-                    <div class="w-16 h-16 mx-auto bg-cyan-500/10 rounded-2xl flex items-center justify-center text-cyan-400 mb-6 group-hover:bg-cyan-600 group-hover:text-white transition-colors"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" /></svg></div>
-                    <h4 class="text-2xl font-bold text-white mb-4">Uçuş Stresi</h4>
-                    <p class="text-slate-400">Aerofobi yaşayanlar için bilinçli ve sakin bir deneyim.</p>
-                </div>
-            </div>
+            <form onsubmit="aboneOl(event)" class="flex w-full md:w-auto gap-2">
+                <input type="email" id="abone-mail" placeholder="Your email address" required class="flex-1 px-4 py-3 bg-slate-900/50 border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-green-500 transition-colors">
+                <button id="abone-btn" type="submit" class="px-6 py-3 bg-green-600 hover:bg-green-500 text-white font-bold rounded-lg text-sm transition-all whitespace-nowrap shadow-lg shadow-green-600/20">Subscribe</button>
+            </form>
         </div>
     </section>
 
-    <section class="py-20 px-6">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-12">Katılım</h2>
-            <div class="max-w-2xl mx-auto">
-                <div class="glass-card p-8 rounded-3xl border-l-4 border-l-blue-500 text-center">
-                    <h3 class="text-2xl font-bold text-white mb-2"> Başvuru Formu</h3>
-                    <p class="text-slate-400 mb-6">Projeye dahil olmak ve bizimle uçmak için formu doldur.</p>
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdJLYjzKd3gpir8kwYJUUSThRM3QufWzGxGXH3Ve15eeEMY6g/viewform?usp=header" class="inline-block px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold transition-all w-full text-center">Başvuru Yap</a>
-                </div>
+    <section class="py-20 border-t border-white/5 bg-slate-900/50">
+        <div class="max-w-6xl mx-auto text-center px-6">
+            <p class="text-slate-500 text-sm font-bold tracking-[0.3em] uppercase mb-12">Supporters & Partners</p>
+            
+            <div id="sponsor-listesi" class="grid grid-cols-2 md:grid-cols-4 gap-8 justify-center items-center">
+                <span class="col-span-full text-slate-600 text-sm italic">Loading partners...</span>
             </div>
         </div>
     </section>
@@ -180,54 +142,80 @@
     <footer class="border-t border-white/5 bg-slate-900/90 py-16 text-center">
         <div class="max-w-3xl mx-auto px-6">
             <div class="flex items-center justify-center gap-4 mb-6">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg" alt="AB Bayrağı" class="w-12 h-auto">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg" alt="EU Flag" class="w-12 h-auto">
                 <span class="text-left text-xs font-bold text-slate-300 uppercase leading-tight">Co-funded by the<br>Erasmus+ Programme<br>of the European Union</span>
             </div>
-            <p class="text-slate-400 text-sm italic mb-8">"Bu proje Avrupa Komisyonu tarafından desteklenmektedir."</p>
             <p class="text-slate-600 text-xs font-bold uppercase tracking-widest">© 2026 KA152 Project</p>
         </div>
     </footer>
 
     <script>
+        const DB_URL = "https://ka152-proje-default-rtdb.firebaseio.com"; 
+
         function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('translate-x-full'); }
 
-        // FIREBASE ENTEGRASYONU (Sadece Tarih İçin)
-        // SENİN LİNKİN:
-        const DB_URL = "https://ka152-proje-default-rtdb.firebaseio.com";
+        fetch(DB_URL + "/veri.json").then(r => r.json()).then(data => {
+            if(!data) return;
 
-        // Veriyi çek
-        fetch(DB_URL + "/veri.json")
-            .then(res => res.json())
-            .then(data => {
-                // Eğer panelden tarih ayarlanmışsa onu kullan, yoksa varsayılan bir tarih olsun
-                let hedefZaman;
-                
-                if (data && data.tarih) {
-                    hedefZaman = new Date(data.tarih).getTime();
-                } else {
-                    hedefZaman = new Date("2026-05-15T09:00:00").getTime(); // Varsayılan
+            // GERİ SAYIM
+            let hedefTarih = data.tarih ? new Date(data.tarih).getTime() : new Date("2026-05-15T09:00:00").getTime();
+            setInterval(function() {
+                const simdi = new Date().getTime(); 
+                const fark = hedefTarih - simdi;
+                if (fark > 0) {
+                    document.getElementById("gun").innerText = Math.floor(fark / (1000 * 60 * 60 * 24));
+                    document.getElementById("saat").innerText = Math.floor((fark % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    document.getElementById("dakika").innerText = Math.floor((fark % (1000 * 60 * 60)) / (1000 * 60));
+                    document.getElementById("saniye").innerText = Math.floor((fark % (1000 * 60)) / 1000);
+                } else { 
+                    document.getElementById("countdown-area").innerHTML = "<h2 class='text-center text-white text-3xl font-bold'>TAKEOFF! ✈️</h2>"; 
                 }
+            }, 1000);
 
-                // Geri Sayım Motoru
-                setInterval(function() {
-                    const simdi = new Date().getTime(); 
-                    const fark = hedefZaman - simdi;
-                    
-                    if (fark > 0) {
-                        document.getElementById("gun").innerText = Math.floor(fark / (1000 * 60 * 60 * 24));
-                        document.getElementById("saat").innerText = Math.floor((fark % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                        document.getElementById("dakika").innerText = Math.floor((fark % (1000 * 60 * 60)) / (1000 * 60));
-                        document.getElementById("saniye").innerText = Math.floor((fark % (1000 * 60)) / 1000);
-                    } else { 
-                        document.getElementById("countdown-area").innerHTML = "<h2 class='text-center text-white text-3xl font-bold'>UÇUŞ BAŞLADI! ✈️</h2>"; 
-                    }
-                }, 1000);
-            })
-            .catch(err => {
-                console.log("Firebase hatası:", err);
-                // Hata olursa en azından sayaç çalışsın diye varsayılan tarih
-                // Ama panelden değiştiremezsin hata varsa.
-            });
+            // SPONSORLAR / ORTAKLAR (DAİRESEL VE İSİMLİ)
+            const spDiv = document.getElementById('sponsor-listesi');
+            if(spDiv && data.ortaklar && data.ortaklar.length > 0) {
+                spDiv.innerHTML = data.ortaklar.map(o => `
+                    <div class="flex flex-col items-center group">
+                        <div class="w-32 h-32 rounded-full overflow-hidden bg-white border-4 border-slate-700 shadow-xl group-hover:border-blue-500 group-hover:scale-105 transition-all duration-300">
+                            <img src="${o.logo}" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="mt-4 text-white font-bold text-lg">${o.ad}</h4>
+                        <p class="text-slate-500 text-xs font-bold uppercase tracking-wider">${o.rol || "Partner"}</p>
+                    </div>
+                `).join('');
+            } else if (spDiv) {
+                spDiv.innerHTML = '<span class="col-span-full text-slate-600 text-sm">No partners added yet.</span>';
+            }
+        });
+
+        // ABONE OLMA İŞLEMİ
+        async function aboneOl(e) {
+            e.preventDefault();
+            const btn = document.getElementById('abone-btn');
+            const mail = document.getElementById('abone-mail').value;
+            btn.innerText = "⏳ ..."; 
+            btn.disabled = true;
+
+            try {
+                let res = await fetch(DB_URL + "/veri/aboneler.json");
+                let aboneler = await res.json() || [];
+                
+                if(!aboneler.includes(mail)) {
+                    aboneler.push(mail);
+                    await fetch(DB_URL + "/veri/aboneler.json", { method: "PUT", body: JSON.stringify(aboneler) });
+                    alert("✅ Successfully subscribed! Thank you.");
+                } else {
+                    alert("⚠️ You are already subscribed.");
+                }
+                document.getElementById('abone-mail').value = "";
+            } catch(err) { 
+                console.error(err);
+                alert("❌ An error occurred, please try again."); 
+            }
+            btn.innerText = "Subscribe"; 
+            btn.disabled = false;
+        }
     </script>
 </body>
 </html>
